@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework.DDD\Framework.DDD.csproj" />
+    <ProjectReference Include="..\..\Framework.Result\Framework.Results.csproj" />
+    <ProjectReference Include="..\..\Framework.Strings\Framework.Strings.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
+  </ItemGroup>
+
 </Project>
