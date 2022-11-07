@@ -33,7 +33,7 @@
 					(Resources.Messages.Validations.MaxLength,
 					Resources.DataDictionary.EmailAddress, MaxLength);
 
-				throw new MaxLengthException(errorMessage);
+				throw new InvalidLengthException(errorMessage);
 			}
 
 			try

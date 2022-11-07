@@ -1,32 +1,28 @@
 ﻿namespace Domain.SharedKernel
 {
-	public class Mobile : SeedWork.ValueObject
+	public class MobilePhone : SeedWork.ValueObject
 	{
 		#region Constant(s)
 		public const int FixLength = 11;
 
 		public const int VerificationKeyFixLength = 6;
-
-		public const string RegularExpression = @"09\d{9}";
 		#endregion /Constant(s)
 
 		#region Static Member(s)
-		public static FluentResults.Result<Mobile> Create(string value)
+		public static MobilePhone Create(string value)
 		{
 			var result =
-				new FluentResults.Result<Mobile>();
+				new MobilePhone();
 
-			//value =
-			//	Dtat.String.Fix(text: value);
+			value =
+				Text.Fix(text: value);
 
 			if (value is null)
 			{
 				string errorMessage = string.Format
 					(Resources.Messages.Validations.Required, Resources.DataDictionary.Mobile);
 
-				result.WithError(errorMessage: errorMessage);
-
-				return result;
+				throw new ArgumentNullOrEmptyException(errorMessage);
 			}
 
 			if (value.Length != FixLength)
@@ -35,29 +31,14 @@
 					(Resources.Messages.Validations.FixLengthNumeric,
 					Resources.DataDictionary.Mobile, FixLength);
 
-				result.WithError(errorMessage: errorMessage);
-
-				return result;
-			}
-
-			if (System.Text.RegularExpressions.Regex.IsMatch
-				(input: value, pattern: RegularExpression) == false)
-			{
-				string errorMessage = string.Format
-					(Resources.Messages.Validations.RegularExpression,
-					Resources.DataDictionary.Mobile);
-
-				result.WithError(errorMessage: errorMessage);
-
-				return result;
+				throw new InvalidLengthException(errorMessage);	
 			}
 
 			var returnValue =
-				new Mobile(value: value);
+				new MobilePhone(value: value);
 
-			result.WithValue(value: returnValue);
 
-			return result;
+			return returnValue;
 		}
 
 		public string GetVerificationKey()
@@ -71,11 +52,11 @@
 		}
 		#endregion /Static Member(s)
 
-		private Mobile() : base()
+		private MobilePhone() : base()
 		{
 		}
 
-		private Mobile(string value) : this()
+		private MobilePhone(string value) : this()
 		{
 			Value = value;
 			IsVerified = false;
@@ -83,7 +64,7 @@
 
 		}
 
-		private Mobile
+		private MobilePhone
 			(string value, bool isVerified, string verificationKey) : this(value: value)
 		{
 			IsVerified = isVerified;
@@ -96,52 +77,37 @@
 
 		public string VerificationKey { get; }
 
-		protected override
-			System.Collections.Generic.IEnumerable<object> GetEqualityComponents()
+		protected override IEnumerable<object> GetEqualityComponents()
 		{
 			yield return Value;
 			yield return IsVerified;
 			yield return VerificationKey;
 		}
 
-		public FluentResults.Result<Mobile> Verify()
+		public MobilePhone Verify()
 		{
-			var result =
-				new FluentResults.Result<Mobile>();
-
 			if (IsVerified == true)
 			{
-				result.WithError
-					(errorMessage: Resources.Messages.Errors.CellPhoneNumberAlreadyVerified);
-
-				return result;
+				throw new MobilePhoneAlreadyVerifiedException();
 			}
 
 			var newObject =
-				new Mobile
+				new MobilePhone
 				(value: Value, isVerified: true, verificationKey: VerificationKey);
 
-			result.WithValue(value: newObject);
 
-			return result;
+			return newObject;
 		}
 
-		public FluentResults.Result<Mobile> VerifyByKey(string verificationKey)
+		public MobilePhone VerifyByKey(string verificationKey)
 		{
-			var result =
-				new FluentResults.Result<Mobile>();
-
 			if (string.Compare(VerificationKey, verificationKey, ignoreCase: false) != 0)
 			{
-				result.WithError
-					(errorMessage: Resources.Messages.Errors.InvalidVerificationKey);
-
-				return result;
+				throw new InvalidCodeException
+					(Resources.Messages.Errors.InvalidVerificationKey);
 			}
 
-			result = Verify();
-
-			return result;
+			return Verify();
 		}
 
 		public override string ToString()

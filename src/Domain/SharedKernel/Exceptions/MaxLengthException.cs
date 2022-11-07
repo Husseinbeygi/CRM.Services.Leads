@@ -1,8 +1,8 @@
 ﻿namespace Domain.SharedKernel.Exceptions
 {
-	internal class MaxLengthException : Exception
+	public class InvalidLengthException : Exception
 	{
-		public MaxLengthException(string? message) : base(message)
+		public InvalidLengthException(string? message) : base(message)
 		{
 		}
 	}

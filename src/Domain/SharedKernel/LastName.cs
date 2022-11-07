@@ -30,7 +30,7 @@ namespace Domain.SharedKernel
 					(Resources.Messages.Validations.MaxLength,
 					Resources.DataDictionary.LastName, MaxLength);
 
-				throw new MaxLengthException(errorMessage);
+				throw new InvalidLengthException(errorMessage);
 			}
 
 			var returnValue =
