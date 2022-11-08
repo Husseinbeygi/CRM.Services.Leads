@@ -19,7 +19,7 @@ namespace Domain.SharedKernel
 				string errorMessage = string.Format
 					(Resources.Messages.Validations.Required, Resources.DataDictionary.FirstName);
 
-				throw new ArgumentNullException(errorMessage);
+				throw new ArgumentNullOrEmptyException(errorMessage);
 			}
 
 			if (value.Length > MaxLength)
