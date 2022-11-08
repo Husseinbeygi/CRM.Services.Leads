@@ -20,7 +20,7 @@ namespace Domain.SharedKernel
 				string errorMessage = string.Format
 					(Resources.Messages.Validations.Required, Resources.DataDictionary.LastName);
 
-				throw new ArgumentNullException(errorMessage);
+				throw new ArgumentNullOrEmptyException(errorMessage);
 
 			}
 
