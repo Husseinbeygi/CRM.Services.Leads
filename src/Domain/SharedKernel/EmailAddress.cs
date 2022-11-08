@@ -11,11 +11,8 @@
 		#region Static Member(s)
 		public static EmailAddress Create(string value)
 		{
-			var result =
-				new EmailAddress();
-
 			value =
-				Text.Fix(result.Value);
+				Text.Fix(value);
 
 			if (value is null)
 			{
@@ -23,7 +20,7 @@
 					(Resources.Messages.Validations.Required,
 					Resources.DataDictionary.EmailAddress);
 
-				throw new ArgumentNullException(errorMessage);
+				throw new ArgumentNullOrEmptyException(errorMessage);
 
 			}
 
