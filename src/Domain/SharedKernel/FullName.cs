@@ -4,11 +4,11 @@
 	{
 
 		#region Static Member(s)
-		public static FluentResults.Result<FullName>
+		public static FullName
 			Create(int? salutation, string firstName, string lastName)
 		{
 			var result =
-				new Result<FullName>();
+				new FullName();
 
 			try
 			{
@@ -25,13 +25,13 @@
 					new FullName(salutation: salutationResult,
 					firstName: firstNameResult, lastName: lastNameResult);
 
-				result.WithValue(value: returnValue);
+				result = returnValue;
 
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 
-				result.WithError(ex.Message);
+				throw;
 			}
 
 			return result;
