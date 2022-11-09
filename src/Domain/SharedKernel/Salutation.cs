@@ -19,7 +19,7 @@ public class Salutation : SeedWork.Enumeration
 			string errorMessage = string.Format
 				(Resources.Messages.Validations.Required, Resources.DataDictionary.Salutation);
 
-			throw new ArgumentNullException(errorMessage);
+			throw new ArgumentNullOrEmptyException(errorMessage);
 		}
 
 		var salutation =
