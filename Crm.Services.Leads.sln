@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Results", "Framew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Strings", "Framework\Framework.Strings\Framework.Strings.csproj", "{D1AB3033-C541-4F83-A079-AA743812E1F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.DateTime", "Framework\Framework.DateTime\Framework.DateTime.csproj", "{CEEA92D7-6ABE-467F-A557-2E8E6D6C7EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.DateTime", "Framework\Framework.DateTime\Framework.DateTime.csproj", "{CEEA92D7-6ABE-467F-A557-2E8E6D6C7EFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.DateTime.Test", "Framework\Framework.DateTime.Test\Framework.DateTime.Test.csproj", "{100AC3A3-7BDD-46EE-9992-A32591574769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.DateTime.Test", "Framework\Framework.DateTime.Test\Framework.DateTime.Test.csproj", "{100AC3A3-7BDD-46EE-9992-A32591574769}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
