@@ -7,7 +7,7 @@ public class DatabaseContext : DbContext
 	private static readonly System.Type[] EnumerationTypes =
 	{ typeof(Domain.Aggregates.Leads.ValueObjects.Industry), typeof(Domain.SharedKernel.Salutation) };
 
-	public DatabaseContext(DbContextOptions options) : base(options)
+	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
 	{
 	}
 
