@@ -1,7 +1,11 @@
-﻿namespace Domain.Aggregates.Leads.ValueObjects;
+﻿	namespace Domain.Aggregates.Leads.ValueObjects;
 
 public class Industry : SeedWork.Enumeration
 {
+	#region Constant(s)
+	public const int MaxLength = 50;
+	#endregion /Constant(s)
+
 	#region Seeds
 	public static readonly Industry Agriculture = new(0, Resources.DataDictionary.Agriculture);
 	public static readonly Industry Apparel = new(1, Resources.DataDictionary.Apparel);
@@ -23,7 +27,7 @@ public class Industry : SeedWork.Enumeration
 	public static readonly Industry Hospitality = new(17, Resources.DataDictionary.Hospitality);
 	public static readonly Industry Insurance = new(18, Resources.DataDictionary.Insurance);
 	public static readonly Industry Machinery = new(19, Resources.DataDictionary.Machinery);
-	public static readonly Industry Manufacturing = new(1, Resources.DataDictionary.Manufacturing);
+	public static readonly Industry Manufacturing = new(29, Resources.DataDictionary.Manufacturing);
 	public static readonly Industry Media = new(20, Resources.DataDictionary.Media);
 	public static readonly Industry NotForProfit = new(21, Resources.DataDictionary.NotForProfit);
 	public static readonly Industry Retail = new(22, Resources.DataDictionary.Retail);
@@ -33,7 +37,7 @@ public class Industry : SeedWork.Enumeration
 	public static readonly Industry Transportation = new(26, Resources.DataDictionary.Transportation);
 	public static readonly Industry Utilities = new(27, Resources.DataDictionary.Utilities);
 	public static readonly Industry Recreation = new(28, Resources.DataDictionary.Recreation);
-	public static readonly Industry Other = new(29, Resources.DataDictionary.Other);
+	public static readonly Industry Other = new(30, Resources.DataDictionary.Other);
 	#endregion /Seeds
 
 	#region Static Member(s)

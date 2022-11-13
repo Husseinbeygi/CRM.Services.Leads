@@ -54,14 +54,13 @@ public class LeadUnitTest
 			EmailAddress.Create("Hussein@Gmail.com"), LeadStatus.New, "CEO",
 			company: "Company", mobile: "+989152020056", phone: "123456789",
 			rating: Rating.Warm, country: "Iran", state: "Khorasan",
-			city: "Mashhad", street: "Saba", industry: Industry.Technology, annualRevenue: "120000",
+			city: "Mashhad", street: "Saba", industry: Industry.Technology, annualRevenue: 120000,
 			leadSource: LeadSource.Web, postalCode: "123123123", numberOfEmployees: 0, website: "Goolds.com",
 			description: "Very Good");
 
 
 		result.FirstName.Value.Should().Be("Hussein");
 		result.LastName.Value.Should().Be("beygi");
-		result.Salutation.Value.Should().Be(0);
 		result.LeadSource.Value.Should().Be(5);
 		result.Rating.Value.Should().Be(1);
 		result.LeadStatus.Value.Should().Be(0);
@@ -69,7 +68,7 @@ public class LeadUnitTest
 		result.Title.Should().Be("CEO");
 		result.Mobile.Should().Be("+989152020056");
 		result.Phone.Should().Be("123456789");
-		result.AnnualRevenue.Should().Be("120000");
+		result.AnnualRevenue.Should().Be(120000);
 		result.City.Should().Be("Mashhad");
 		result.Country.Should().Be("Iran");
 		result.Description.Should().Be("Very Good");
@@ -80,6 +79,9 @@ public class LeadUnitTest
 		result.Street.Should().Be("Saba");
 		result.Website.Should().Be("Goolds.com");
 		result.Email.Value.Should().Be("Hussein@Gmail.com");
+		result.FullName.Salutation.Value.Should().Be(0);
+		result.FullName.FirstName.Value.Should().Be("Hussein");
+		result.FullName.LastName.Value.Should().Be("beygi");
 
 	}
 
