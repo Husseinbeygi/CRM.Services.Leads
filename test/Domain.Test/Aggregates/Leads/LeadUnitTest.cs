@@ -1,5 +1,6 @@
 ﻿using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
+using Persistence;
 
 namespace Domain.Test.Aggregates.Leads;
 
@@ -7,17 +8,17 @@ public class LeadUnitTest
 {
 	[Theory]
 	[InlineData(null, null)]
-	[InlineData("Beygi",null)]
+	[InlineData("Beygi", null)]
 	[InlineData(null, "TestComp")]
-	public void ShouldThrowExceptionWhenRequiredInputIsNotValid(string Lname,string Company)
+	public void ShouldThrowExceptionWhenRequiredInputIsNotValid(string Lname, string Company)
 	{
 		var result = () =>
 			new Domain.Aggregates.Leads.Lead
 			(Guid.NewGuid(),
 			null,
 			null, LastName.Create(Lname), null, null, null,
-			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null
-, numberOfEmployees: null, website: null, description: null);
+			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
+			numberOfEmployees: null, website: null, description: null);
 
 
 		result.Should().Throw<Exception>();
@@ -29,13 +30,13 @@ public class LeadUnitTest
 	[InlineData("    Beygi   ", "        Test    Comp          ")]
 	public void ShouldCreateUserWhenMinimumRequiredInputAreValid(string Lname, string Company)
 	{
-		var result = 
+		var result =
 			new Domain.Aggregates.Leads.Lead
 			(Guid.NewGuid(),
 			null,
 			null, LastName.Create(Lname), null, null, null,
-			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null
-, numberOfEmployees: null, website: null, description: null);
+			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
+			numberOfEmployees: null, website: null, description: null);
 
 
 		result.LastName.Should().Be(LastName.Create("Beygi"));
