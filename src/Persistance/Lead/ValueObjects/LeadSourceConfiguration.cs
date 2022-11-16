@@ -23,6 +23,7 @@ public class LeadSourceConfiguration : IEntityTypeConfiguration<LeadSource>
 			.IsRequired(required: true)
 			.HasMaxLength(maxLength: LeadSource.MaxLength);
 
+		builder.HasData(LeadSource.None);
 		builder.HasData(LeadSource.ExternalReferral);
 		builder.HasData(LeadSource.Advertisement);
 		builder.HasData(LeadSource.Wordofmouth);

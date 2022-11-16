@@ -52,9 +52,9 @@ public class Lead : SeedWork.AggregateRoot
 
 	private void SetFullName(Salutation salutation, FirstName firstName, LastName lastName)
 	{
-		if (salutation is not null && firstName is not null && lastName is not null)
+		if (salutation is not null && lastName is not null)
 		{
-			FullName = FullName.Create(salutation.Value, firstName.Value, lastName.Value);
+			FullName = FullName.Create(salutation.Value, firstName?.Value, lastName.Value);
 		}
 	}
 

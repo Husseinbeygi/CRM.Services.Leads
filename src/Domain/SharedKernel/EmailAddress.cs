@@ -16,11 +16,12 @@
 
 			if (value is null)
 			{
-				string errorMessage = string.Format
-					(Resources.Messages.Validations.Required,
-					Resources.DataDictionary.EmailAddress);
+				return null;
+				//string errorMessage = string.Format
+				//	(Resources.Messages.Validations.Required,
+				//	Resources.DataDictionary.EmailAddress);
 
-				throw new ArgumentNullOrEmptyException(errorMessage);
+				//throw new ArgumentNullOrEmptyException(errorMessage);
 
 			}
 

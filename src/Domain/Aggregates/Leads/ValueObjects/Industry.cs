@@ -7,7 +7,8 @@ public class Industry : SeedWork.Enumeration
 	#endregion /Constant(s)
 
 	#region Seeds
-	public static readonly Industry Agriculture = new(0, Resources.DataDictionary.Agriculture);
+	public static readonly Industry None = new(0, Resources.DataDictionary.None);
+	public static readonly Industry Agriculture = new(31, Resources.DataDictionary.Agriculture);
 	public static readonly Industry Apparel = new(1, Resources.DataDictionary.Apparel);
 	public static readonly Industry Banking = new(2, Resources.DataDictionary.Banking);
 	public static readonly Industry Biotechnology = new(3, Resources.DataDictionary.Biotechnology);
@@ -46,7 +47,7 @@ public class Industry : SeedWork.Enumeration
 		if (value is null)
 		{
 			string errorMessage = string.Format
-				(Resources.Messages.Validations.Required, Resources.DataDictionary.Salutation);
+				(Resources.Messages.Validations.Required, Resources.DataDictionary.Indstry);
 
 			throw new ArgumentNullException(errorMessage);
 		}
@@ -57,7 +58,7 @@ public class Industry : SeedWork.Enumeration
 		if (industry is null)
 		{
 			string errorMessage = string.Format
-				(Resources.Messages.Validations.InvalidCode, Resources.DataDictionary.Salutation);
+				(Resources.Messages.Validations.InvalidCode, Resources.DataDictionary.Indstry);
 
 
 			throw new InvalidCodeException(errorMessage);

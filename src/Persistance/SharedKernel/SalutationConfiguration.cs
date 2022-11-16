@@ -23,6 +23,7 @@ public class SalutationConfiguration : IEntityTypeConfiguration<Salutation>
 			.IsRequired(required: true)
 			.HasMaxLength(maxLength: Salutation.MaxLength);
 
+		builder.HasData(Salutation.None);
 		builder.HasData(Salutation.Mr);
 		builder.HasData(Salutation.Ms);
 		builder.HasData(Salutation.Dr);

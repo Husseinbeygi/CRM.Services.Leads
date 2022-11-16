@@ -246,6 +246,9 @@
   <data name="Id" xml:space="preserve">
     <value>Id</value>
   </data>
+  <data name="Indstry" xml:space="preserve">
+    <value>Indstry</value>
+  </data>
   <data name="InStore" xml:space="preserve">
     <value>In-Store</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>--None--</value>
   </data>
   <data name="NotForProfit" xml:space="preserve">
     <value>Not For Profit</value>

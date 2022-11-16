@@ -23,6 +23,7 @@ public class IndustryConfiguration : IEntityTypeConfiguration<Industry>
 			.IsRequired(required: true)
 			.HasMaxLength(maxLength: Industry.MaxLength);
 
+		builder.HasData(Industry.None);
 		builder.HasData(Industry.Agriculture);
 		builder.HasData(Industry.Apparel);
 		builder.HasData(Industry.Banking);

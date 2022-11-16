@@ -16,10 +16,12 @@ namespace Domain.SharedKernel
 
 			if (value is null)
 			{
-				string errorMessage = string.Format
-					(Resources.Messages.Validations.Required, Resources.DataDictionary.FirstName);
+				//string errorMessage = string.Format
+				//	(Resources.Messages.Validations.Required, Resources.DataDictionary.FirstName);
 
-				throw new ArgumentNullOrEmptyException(errorMessage);
+				//throw new ArgumentNullOrEmptyException(errorMessage);
+
+				return null;
 			}
 
 			if (value.Length > MaxLength)

@@ -9,6 +9,11 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+services.AddTransient<Persistence.IUnitOfWork, Persistence.UnitOfWork>();
+
+// using AutoMapper;
+services.AddAutoMapper(typeof(Program));
+
 var connection = builder.Configuration.GetConnectionString("ConnctionString");
 services.AddDbContext<Persistence.DatabaseContext>(opt =>
 {

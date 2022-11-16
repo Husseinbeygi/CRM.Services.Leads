@@ -5,7 +5,12 @@ namespace Persistence;
 public class DatabaseContext : DbContext
 {
 	private static readonly System.Type[] EnumerationTypes =
-	{ typeof(Domain.Aggregates.Leads.ValueObjects.Industry), typeof(Domain.SharedKernel.Salutation) };
+	{ typeof(Domain.Aggregates.Leads.ValueObjects.Industry), 
+	  typeof(Domain.Aggregates.Leads.ValueObjects.LeadSource),
+	  typeof(Domain.Aggregates.Leads.ValueObjects.LeadStatus),
+	  typeof(Domain.Aggregates.Leads.ValueObjects.Rating),
+	  typeof(Domain.SharedKernel.Salutation)
+	};
 
 	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
 	{
@@ -34,7 +39,7 @@ public class DatabaseContext : DbContext
 		foreach (var enumerationEntry in enumerationEntries)
 		{
 			enumerationEntry.State =
-				Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+				EntityState.Unchanged;
 		}
 		// **************************************************
 

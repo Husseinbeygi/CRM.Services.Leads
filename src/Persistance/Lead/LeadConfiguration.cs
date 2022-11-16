@@ -8,6 +8,7 @@ public class LeadConfiguration :
 	public void Configure(EntityTypeBuilder<Domain.Aggregates.Leads.Lead> builder)
 	{
 		builder.Property(x => x.FirstName)
+			.IsRequired(false)
 			.HasConversion(x => x.Value, x => Domain.SharedKernel.FirstName.Create(x));
 
 		builder.Property(x => x.LastName)
@@ -18,7 +19,7 @@ public class LeadConfiguration :
 		{
 			b.HasOne(x => x.Salutation).WithMany().HasForeignKey("SalutationId").IsRequired(false);
 
-			b.Property<int>("SalutationId").HasColumnName("SalutationId"); // Fix The Column name in DB
+			b.Property<int>("SalutationId").HasColumnName("SalutationId");  // Fix The Column name in DB
 
 		});
 
@@ -30,6 +31,7 @@ public class LeadConfiguration :
 		builder.Property(x => x.Company).IsRequired().HasMaxLength(255);
 
 		builder.Property(x => x.Email)
+			.IsRequired(false)
 			.HasConversion(x => x.Value, x => Domain.SharedKernel.EmailAddress.Create(x));
 
 		builder.Property(x => x.Title).HasMaxLength(50);

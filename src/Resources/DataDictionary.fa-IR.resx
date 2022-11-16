@@ -252,6 +252,9 @@
   <data name="Id" xml:space="preserve">
     <value>شناسه</value>
   </data>
+  <data name="Indstry" xml:space="preserve">
+    <value>صنعت</value>
+  </data>
   <data name="InStore" xml:space="preserve">
     <value>در فروشگاه</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="New" xml:space="preserve">
     <value>جدید</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>هیچ</value>
   </data>
   <data name="NotForProfit" xml:space="preserve">
     <value>غیر انتفاعی</value>
