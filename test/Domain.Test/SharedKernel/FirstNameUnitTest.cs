@@ -6,20 +6,20 @@
 		{
 		}
 
-		[Theory]
-		[InlineData(null)]
-		[InlineData("")]
-		[InlineData("        ")]
-		public void ShouldThrowExceptionWhenValueIsNullOrEmpty(string value)
-		{
-			var result = () =>
-				Domain.SharedKernel.FirstName.Create(value: value);
+		//[Theory]
+		//[InlineData(null)]
+		//[InlineData("")]
+		//[InlineData("        ")]
+		//public void ShouldThrowExceptionWhenValueIsNullOrEmpty(string value)
+		//{
+		//	var result = () =>
+		//		Domain.SharedKernel.FirstName.Create(value: value);
 
-			string errorMessage = string.Format
-				(Resources.Messages.Validations.Required, Resources.DataDictionary.FirstName);
+		//	string errorMessage = string.Format
+		//		(Resources.Messages.Validations.Required, Resources.DataDictionary.FirstName);
 
-			result.Should().Throw<ArgumentNullOrEmptyException>().WithMessage(errorMessage);
-		}
+		//	result.Should().Throw<ArgumentNullOrEmptyException>().WithMessage(errorMessage);
+		//}
 
 		[Theory]
 		[InlineData("ali","ali")]

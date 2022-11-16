@@ -34,7 +34,7 @@
 
 			result.FirstName.Value.Should().Be("Ali Reza");
 			result.LastName.Value.Should().Be("Alavi Asl");
-			result.Salutation.Value.Should().Be(0);
+			result.Salutation.Value.Should().Be(1);
 		}
 	}
 }

@@ -18,7 +18,7 @@ public class LeadSourceUnitTest
 	public void ShouldReturnValueThenInputIsValid()
 	{
 		var result =
-			Domain.SharedKernel.Salutation.GetByValue(value: 0);
+			Domain.SharedKernel.Salutation.GetByValue(value: 1);
 
 		result.Value.Should()
 		.Be(Domain.Aggregates.Leads.ValueObjects.LeadSource.Advertisement.Value);

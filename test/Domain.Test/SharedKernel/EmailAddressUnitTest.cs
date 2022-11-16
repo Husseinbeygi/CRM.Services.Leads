@@ -8,22 +8,22 @@ namespace Domain.Test.SharedKernel
 		{
 		}
 
-		[Theory]
-		[InlineData(null)]
-		[InlineData("")]
-		[InlineData("    ")]
-		public void ShouldReturnErrorWhenEmailAddressIsNullOrEmpty(string email)
-		{
-			var result = () =>
-				Domain.SharedKernel.EmailAddress.Create(value: email);
+		//[Theory]
+		//[InlineData(null)]
+		//[InlineData("")]
+		//[InlineData("    ")]
+		//public void ShouldReturnErrorWhenEmailAddressIsNullOrEmpty(string email)
+		//{
+		//	var result = () =>
+		//		Domain.SharedKernel.EmailAddress.Create(value: email);
 
-			string errorMessage = string.Format
-				(Resources.Messages.Validations.Required, Resources.DataDictionary.EmailAddress);
+		//	string errorMessage = string.Format
+		//		(Resources.Messages.Validations.Required, Resources.DataDictionary.EmailAddress);
 
-			result.Should()
-			.Throw<ArgumentNullOrEmptyException>()
-			.WithMessage(errorMessage);
-		}
+		//	result.Should()
+		//	.Throw<ArgumentNullOrEmptyException>()
+		//	.WithMessage(errorMessage);
+		//}
 
 		[Theory]
 		[InlineData("abcde")]

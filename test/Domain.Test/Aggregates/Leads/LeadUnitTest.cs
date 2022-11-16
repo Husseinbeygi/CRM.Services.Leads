@@ -62,7 +62,7 @@ public class LeadUnitTest
 
 		result.FirstName.Value.Should().Be("Hussein");
 		result.LastName.Value.Should().Be("beygi");
-		result.LeadSource.Value.Should().Be(5);
+		result.LeadSource.Value.Should().Be(6);
 		result.Rating.Value.Should().Be(1);
 		result.LeadStatus.Value.Should().Be(0);
 		result.Company.Should().Be("Company");
@@ -80,7 +80,7 @@ public class LeadUnitTest
 		result.Street.Should().Be("Saba");
 		result.Website.Should().Be("Goolds.com");
 		result.Email.Value.Should().Be("Hussein@Gmail.com");
-		result.FullName.Salutation.Value.Should().Be(0);
+		result.FullName.Salutation.Value.Should().Be(1);
 		result.FullName.FirstName.Value.Should().Be("Hussein");
 		result.FullName.LastName.Value.Should().Be("beygi");
 

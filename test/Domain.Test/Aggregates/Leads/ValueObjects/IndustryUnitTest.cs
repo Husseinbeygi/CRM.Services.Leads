@@ -18,7 +18,7 @@ public class IndustryUnitTest
 	public void ShouldReturnValueThenInputIsValid()
 	{
 		var result =
-			Domain.SharedKernel.Salutation.GetByValue(value: 0);
+			Domain.Aggregates.Leads.ValueObjects.Industry.GetByValue(value: 31);
 
 		result.Value.Should()
 		.Be(Domain.Aggregates.Leads.ValueObjects.Industry.Agriculture.Value);
