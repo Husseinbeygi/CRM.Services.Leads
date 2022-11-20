@@ -502,6 +502,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lead.
+        /// </summary>
+        public static string Lead {
+            get {
+                return ResourceManager.GetString("Lead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lead Source.
         /// </summary>
         public static string LeadSource {

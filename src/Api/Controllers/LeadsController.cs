@@ -62,6 +62,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> CreateLead(CreateLeadViewModel model)
 	{
+		var result = new Result<Domain.Aggregates.Leads.Lead>();
 		try
 		{
 			var createLead = new
@@ -93,44 +94,57 @@ public class LeadsController : Infrustructure.ControllerBase
 
 			await UnitOfWork.SaveAsync();
 
-			return Created("http://test.com", createLead.ToResult());
+			result.WithData(createLead);
+
+			return Created("http://test.com", result);
 
 		}
 		catch (Exception ex)
 		{
-			return BadRequest(ex.Message);
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
 		}
+
 
 	}
 
-	[HttpDelete]
+	[HttpDelete("{id}")]
 	public async Task<IActionResult> DeleteLead(Guid Id)
 	{
+		var result = new Result<Domain.Aggregates.Leads.Lead>();
+
 		try
 		{
 			var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(Id);
 			if (res == false)
 			{
-				return NotFound();
+				result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+								Resources.DataDictionary.Lead));
+				return NotFound(result);
 			}
+			await UnitOfWork.SaveAsync();
 			return Ok();
 		}
 		catch (Exception ex)
 		{
 
-			return BadRequest(ex.Message);
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
 		}
 	}
 
 	[HttpPatch]
 	public async Task<IActionResult> UpdateLead(UpdateLeadViewModel model)
 	{
+		var result = new Result<Domain.Aggregates.Leads.Lead>();
 
 		var leadModel = await UnitOfWork.LeadRepository.GetByIdAsync(model.Id);
 
 		if (leadModel is null)
 		{
-			return NotFound();
+			result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+							Resources.DataDictionary.Lead));
+			return NotFound(result);
 		}
 
 		try
@@ -161,12 +175,14 @@ public class LeadsController : Infrustructure.ControllerBase
 
 			await UnitOfWork.SaveAsync();
 
-			return Ok(leadModel);
+			result.WithData( leadModel );
+
+			return Ok(result);
 		}
 		catch (Exception ex)
 		{
-
-			return BadRequest(ex.Message);
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
 		}
 
 	}

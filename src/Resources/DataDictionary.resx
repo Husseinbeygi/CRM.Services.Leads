@@ -264,6 +264,9 @@
   <data name="LastName" xml:space="preserve">
     <value>LastName</value>
   </data>
+  <data name="Lead" xml:space="preserve">
+    <value>Lead</value>
+  </data>
   <data name="LeadSource" xml:space="preserve">
     <value>Lead Source</value>
   </data>
