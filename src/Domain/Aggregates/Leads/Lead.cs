@@ -45,6 +45,7 @@ public class Lead : SeedWork.AggregateRoot
 		Website = website;
 		TenantId = tenantId;
 		CreatedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
+		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
 
 		SetFullName(salutation, firstName, lastName);
 		#endregion
@@ -56,6 +57,42 @@ public class Lead : SeedWork.AggregateRoot
 		{
 			FullName = FullName.Create(salutation.Value, firstName?.Value, lastName.Value);
 		}
+	}
+
+	public void Update(Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
+		LeadStatus leadStatus, string? title, string company, string? mobile, string? phone, Rating rating,
+		string? country, string? state, string? city, string? street, Industry industry, decimal? annualRevenue,
+		LeadSource leadSource, string? postalCode, int? numberOfEmployees, string? website, string? description)
+	{
+		LastName = lastName ?? throw new ArgumentNullOrEmptyException
+			(string.Format(Resources.Messages.Validations.Required, Resources.DataDictionary.LastName));
+
+		Company = company ?? throw new ArgumentNullOrEmptyException
+			(string.Format(Resources.Messages.Validations.Required, Resources.DataDictionary.CompanyName));
+
+		#region AssignTheFields
+		FirstName = firstName;
+		Email = email;
+		Title = title;
+		Mobile = mobile;
+		Phone = phone;
+		LeadStatus = leadStatus;
+		AnnualRevenue = annualRevenue;
+		City = city;
+		Country = country;
+		Description = description;
+		Industry = industry;
+		LeadSource = leadSource;
+		NumberOfEmployees = numberOfEmployees;
+		PostalCode = postalCode;
+		Rating = rating;
+		State = state;
+		Street = street;
+		Website = website;
+		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
+
+		SetFullName(salutation, firstName, lastName);
+		#endregion
 	}
 
 	#region Property(ies)

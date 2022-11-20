@@ -52,7 +52,7 @@ namespace Api.Infrustructure.Middlewares
 				.Get<Microsoft.AspNetCore.Http.Features.IHttpResponseFeature>();
 
 			feature.ReasonPhrase =
-				"خطای ناشناخته‌ای صورت گرفته است! یا مجددا سعی نمایید و یا با تیم پشتیبانی تماس حاصل فرمایید.";
+							Resources.Messages.Errors.UnexpectedError;
 
 			httpResponse.StatusCode =
 				(int)System.Net.HttpStatusCode.BadRequest;

@@ -61,7 +61,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید دقیقا {1} رقم باشد!.
+        ///   Looks up a localized string similar to Length of {0} must be {1}.
         /// </summary>
         public static string FixLengthNumeric {
             get {
@@ -70,7 +70,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید بزرگ‌تر از {1} باشد!.
+        ///   Looks up a localized string similar to Length of {0} greater than {1}.
         /// </summary>
         public static string GreaterThan_FieldValue {
             get {
@@ -79,7 +79,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید بزرگ‌تر از مقدار فیلد {1} باشد!.
+        ///   Looks up a localized string similar to Length of {0} greater than length of {1}.
         /// </summary>
         public static string GreaterThan_TwoFields {
             get {
@@ -88,7 +88,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید بزرگ‌تر یا مساوی {1} باشد!.
+        ///   Looks up a localized string similar to Length of {0} greater or equal than {1}.
         /// </summary>
         public static string GreaterThanOrEqualTo_FieldValue {
             get {
@@ -97,7 +97,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید بزرگ‌تر یا مساوی مقدار فیلد {1} باشد!.
+        ///   Looks up a localized string similar to Length of {0} greater or equal than length of {1}.
         /// </summary>
         public static string GreaterThanOrEqualTo_TwoFields {
             get {
@@ -106,7 +106,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کد {0} صحیح نمی‌باشد!.
+        ///   Looks up a localized string similar to Invalid Code : {0}.
         /// </summary>
         public static string InvalidCode {
             get {
@@ -115,7 +115,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to طول فیلد {0} می‌تواند حداکثر {1} کاراکتر باشد!.
+        ///   Looks up a localized string similar to Max length of {0} is {1}.
         /// </summary>
         public static string MaxLength {
             get {
@@ -124,7 +124,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to طول فیلد {0} باید حداقل {1} کاراکتر باشد!.
+        ///   Looks up a localized string similar to Min length of {0} is {1}.
         /// </summary>
         public static string MinLength {
             get {
@@ -133,7 +133,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} یافت نشد!.
+        ///   Looks up a localized string similar to {0} Not found.
         /// </summary>
         public static string NotFound {
             get {
@@ -142,7 +142,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار فیلد {0} باید بزرگ‌تر یا مساوی {1} و کوچک‌تر یا مساوی {2} باشد..
+        ///   Looks up a localized string similar to Length of {0} must greater or equal than {1} and less than {2}.
         /// </summary>
         public static string Range {
             get {
@@ -151,7 +151,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مقدار {0} معتبر نمی‌باشد!.
+        ///   Looks up a localized string similar to Value of {0} is not valid..
         /// </summary>
         public static string RegularExpression {
             get {
@@ -160,7 +160,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} تکراری است! لطفا از {0} دیگری استفاده نمایید..
+        ///   Looks up a localized string similar to {0} is repetitive. please use an other {0}.
         /// </summary>
         public static string Repetitive {
             get {
@@ -169,7 +169,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to تکمیل {0} الزامی است!.
+        ///   Looks up a localized string similar to {0} Required..
         /// </summary>
         public static string Required {
             get {

@@ -61,7 +61,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to امکان حذف این {0} وجود ندارد!.
+        ///   Looks up a localized string similar to Unable to delete {0}.
         /// </summary>
         public static string CanNotDelete {
             get {
@@ -70,7 +70,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to شماره تلفن همراه قبلا تایید شده است!.
+        ///   Looks up a localized string similar to The PhoneNumber {0} Already Verfied.
         /// </summary>
         public static string CellPhoneNumberAlreadyVerified {
             get {
@@ -79,7 +79,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to نشانی پست الکترونیکی {0} قبلا تایید شده است!.
+        ///   Looks up a localized string similar to The Email {0} Already Verfied.
         /// </summary>
         public static string EmailAddressAlreadyVerified {
             get {
@@ -88,7 +88,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کد فعال‌سازی صحیح نمی‌باشد!.
+        ///   Looks up a localized string similar to Verification key is not valid.
         /// </summary>
         public static string InvalidVerificationKey {
             get {
@@ -97,7 +97,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to خطای ناشناخته‌ای صورت گرفته است! لطفا با تیم پشتیبانی تماس حاصل فرمایید..
+        ///   Looks up a localized string similar to Unexpected Error. Please contact Support.
         /// </summary>
         public static string UnexpectedError {
             get {

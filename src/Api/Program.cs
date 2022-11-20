@@ -1,3 +1,4 @@
+using Api.Infrustructure.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+app.UseExceptionHandling();
 
 app.UseHttpsRedirection();
 

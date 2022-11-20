@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CellPhoneNumberVerified" xml:space="preserve">
-    <value>PhoneNumber verified successfully</value>
+  <data name="CanNotDelete" xml:space="preserve">
+    <value>امکان حذف این {0} وجود ندارد!</value>
   </data>
-  <data name="EmailAddressVerified" xml:space="preserve">
-    <value>Email verified successfully</value>
+  <data name="CellPhoneNumberAlreadyVerified" xml:space="preserve">
+    <value>شماره تلفن همراه قبلا تایید شده است!</value>
   </data>
-  <data name="SuccessCreate" xml:space="preserve">
-    <value>Successfully Created {0}</value>
+  <data name="EmailAddressAlreadyVerified" xml:space="preserve">
+    <value>نشانی پست الکترونیکی {0} قبلا تایید شده است!</value>
   </data>
-  <data name="SuccessDelete" xml:space="preserve">
-    <value>Successfully Deletd {0}</value>
+  <data name="InvalidVerificationKey" xml:space="preserve">
+    <value>کد فعال‌سازی صحیح نمی‌باشد!</value>
   </data>
-  <data name="SuccessUpdate" xml:space="preserve">
-    <value>Successfully Updated {0}</value>
-  </data>
-  <data name="SuccessUserPasswordChanged" xml:space="preserve">
-    <value>Successfully changed password</value>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>خطای ناشناخته‌ای صورت گرفته است! لطفا با تیم پشتیبانی تماس حاصل فرمایید.</value>
   </data>
 </root>

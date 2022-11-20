@@ -61,7 +61,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to شماره تلفن همراه با موفقیت تایید گردید..
+        ///   Looks up a localized string similar to PhoneNumber verified successfully.
         /// </summary>
         public static string CellPhoneNumberVerified {
             get {
@@ -70,7 +70,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to نشانی پست الکترونیکی با موفقیت تایید گردید..
+        ///   Looks up a localized string similar to Email verified successfully.
         /// </summary>
         public static string EmailAddressVerified {
             get {
@@ -79,7 +79,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات {0} با موفقیت درج گردید..
+        ///   Looks up a localized string similar to Successfully Created {0}.
         /// </summary>
         public static string SuccessCreate {
             get {
@@ -88,7 +88,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات {0} با موفقیت حذف گردید..
+        ///   Looks up a localized string similar to Successfully Deletd {0}.
         /// </summary>
         public static string SuccessDelete {
             get {
@@ -97,7 +97,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اطلاعات {0} با موفقیت ویرایش گردید..
+        ///   Looks up a localized string similar to Successfully Updated {0}.
         /// </summary>
         public static string SuccessUpdate {
             get {
@@ -106,7 +106,7 @@ namespace Resources.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to گذرواژه با موفقیت تغییر کرد..
+        ///   Looks up a localized string similar to Successfully changed password.
         /// </summary>
         public static string SuccessUserPasswordChanged {
             get {

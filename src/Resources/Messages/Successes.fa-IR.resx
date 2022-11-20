@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CellPhoneNumberVerified" xml:space="preserve">
-    <value>PhoneNumber verified successfully</value>
+    <value>شماره تلفن همراه با موفقیت تایید گردید.</value>
   </data>
   <data name="EmailAddressVerified" xml:space="preserve">
-    <value>Email verified successfully</value>
+    <value>نشانی پست الکترونیکی با موفقیت تایید گردید.</value>
   </data>
   <data name="SuccessCreate" xml:space="preserve">
-    <value>Successfully Created {0}</value>
+    <value>اطلاعات {0} با موفقیت درج گردید.</value>
   </data>
   <data name="SuccessDelete" xml:space="preserve">
-    <value>Successfully Deletd {0}</value>
+    <value>اطلاعات {0} با موفقیت حذف گردید.</value>
   </data>
   <data name="SuccessUpdate" xml:space="preserve">
-    <value>Successfully Updated {0}</value>
+    <value>اطلاعات {0} با موفقیت ویرایش گردید.</value>
   </data>
   <data name="SuccessUserPasswordChanged" xml:space="preserve">
-    <value>Successfully changed password</value>
+    <value>گذرواژه با موفقیت تغییر کرد.</value>
   </data>
 </root>

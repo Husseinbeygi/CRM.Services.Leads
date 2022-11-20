@@ -182,8 +182,11 @@ public abstract class Repository<TEntity> :
 		throw new NotImplementedException();
 	}
 
-	public Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+	public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
-		throw new NotImplementedException();
+		TEntity entity =
+			await FindAsync(id: id, cancellationToken: cancellationToken);
+
+		return entity;
 	}
 }
