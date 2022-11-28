@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Api.Infrustructure.Middlewares
+﻿namespace Api.Infrustructure.Middlewares
 {
 	/// <summary>
 	/// 
@@ -28,7 +26,7 @@ namespace Api.Infrustructure.Middlewares
 		/// <param name="httpContext"></param>
 		/// <returns></returns>
 		public async Task InvokeAsync
-			(HttpContext httpContext)
+			(HttpContext httpContext, IWebHostEnvironment hostEnvironment)
 		{
 			try
 			{
@@ -36,28 +34,44 @@ namespace Api.Infrustructure.Middlewares
 			}
 			catch (Exception ex)
 			{
-				await HandleException(httpContext.Response, ex);
+				if (hostEnvironment.IsDevelopment())
+				{
+					await HandleException(httpContext.Response, ex);
+				}
+				else
+				{
+					await HandleException(httpContext.Response);
+				}
 			}
 		}
 
 		private static async Task HandleException
-			(HttpResponse httpResponse, Exception exception)
+			(HttpResponse httpResponse, Exception ex)
 		{
-			// Log
+			var res = new Framework.Results.Result<string>();
 
-			httpResponse.Headers.Add("Exception-Type", exception.GetType().Name);
+			res.AddErrorMessage(ex.Message);
 
-			var feature =
-				httpResponse.HttpContext.Features
-				.Get<Microsoft.AspNetCore.Http.Features.IHttpResponseFeature>();
+			httpResponse.ContentType = "application/json";
 
-			feature.ReasonPhrase =
-							Resources.Messages.Errors.UnexpectedError;
+			await httpResponse
+				.WriteAsync(System.Text.Json.JsonSerializer.Serialize(res)).ConfigureAwait(false);
+		}
 
-			httpResponse.StatusCode =
-				(int)System.Net.HttpStatusCode.BadRequest;
+		private static async Task HandleException
+			(HttpResponse httpResponse)
+		{
 
-			await httpResponse.WriteAsync(exception.Message).ConfigureAwait(false);
+			var res = new Framework.Results.Result<string>();
+
+			var msg = Resources.Messages.Errors.UnexpectedError;
+
+			res.AddErrorMessage(msg);
+
+			httpResponse.ContentType = "application/json";
+
+			await httpResponse
+				.WriteAsync(System.Text.Json.JsonSerializer.Serialize(res)).ConfigureAwait(false);
 		}
 	}
 }
