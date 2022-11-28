@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 services.AddControllers();
+services.AddHealthChecks();
+
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
@@ -39,4 +41,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapHealthChecks("/healthcheck");
+
 app.Run();
+
+
+
+
+
+public partial class Program{}
