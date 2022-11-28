@@ -138,14 +138,14 @@ public class LeadsController : Infrustructure.ControllerBase
 
 	[HttpDelete("{id}")]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-	[ProducesResponseType((int)HttpStatusCode.OK)]
-	public async Task<IActionResult> DeleteLead(Guid Id)
+	[ProducesResponseType((int)HttpStatusCode.OK)] 
+	public async Task<IActionResult> DeleteLead(Guid id)
 	{
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 
 		try
 		{
-			var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(Id);
+			var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(id);
 			if (res == false)
 			{
 				result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
