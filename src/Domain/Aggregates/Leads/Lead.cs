@@ -5,7 +5,7 @@ namespace Domain.Aggregates.Leads;
 
 public class Lead : SeedWork.AggregateRoot
 {
-	public Lead()
+	protected Lead()
 	{
 
 	}
@@ -46,18 +46,16 @@ public class Lead : SeedWork.AggregateRoot
 		TenantId = tenantId;
 		CreatedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
 		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
-
-		SetFullName(salutation, firstName, lastName);
 		#endregion
 	}
 
-	private void SetFullName(Salutation salutation, FirstName firstName, LastName lastName)
-	{
-		if (salutation is not null && lastName is not null)
-		{
-			FullName = FullName.Create(salutation.Value, firstName?.Value, lastName.Value);
-		}
-	}
+	//private void SetFullName(Salutation salutation, FirstName firstName, LastName lastName)
+	//{
+	//	if (salutation is not null && lastName is not null)
+	//	{
+	//		FullName = FullName.Create(salutation.Value, firstName?.Value, lastName.Value);
+	//	}
+	//}
 
 	public void Update(Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
 		LeadStatus leadStatus, string? title, string company, string? mobile, string? phone, Rating rating,
@@ -91,14 +89,14 @@ public class Lead : SeedWork.AggregateRoot
 		Website = website;
 		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
 
-		SetFullName(salutation, firstName, lastName);
+		//SetFullName(salutation, firstName, lastName);
 		#endregion
 	}
 
 	#region Property(ies)
 	public SharedKernel.FirstName FirstName { get; private set; }
 	public SharedKernel.LastName LastName { get; private set; }
-	public SharedKernel.FullName FullName { get; private set; }
+	public virtual SharedKernel.Salutation Salutation { get; private set; }
 
 	public string Company { get; private set; }
 	public SharedKernel.EmailAddress Email { get; private set; }
@@ -110,16 +108,16 @@ public class Lead : SeedWork.AggregateRoot
 	public Guid ModifiedById { get; private set; }
 	public long CreatedAt { get; private set; }
 	public Guid CreatedById { get; private set; }
-	public LeadStatus LeadStatus { get; private set; }
+	public virtual LeadStatus LeadStatus { get; private set; }
 	public decimal? AnnualRevenue { get; private set; }
 	public string? City { get; private set; }
 	public string? Country { get; private set; }
 	public string? Description { get; private set; }
-	public Industry Industry { get; private set; }
-	public LeadSource LeadSource { get; private set; }
+	public virtual Industry Industry { get; private set; }
+	public virtual LeadSource LeadSource { get; private set; }
 	public int? NumberOfEmployees { get; private set; }
 	public string? PostalCode { get; private set; }
-	public Rating Rating { get; private set; }
+	public virtual Rating Rating { get; private set; }
 	public string? State { get; private set; }
 	public string? Street { get; private set; }
 	public string? Website { get; private set; }

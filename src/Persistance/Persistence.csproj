@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.EntityFrameworkCore\Framework.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -29,8 +29,8 @@ namespace Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("AnnualRevenue")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)");
+                        .HasPrecision(28, 8)
+                        .HasColumnType("decimal(28,8)");
 
                     b.Property<string>("City")
                         .HasMaxLength(50)
@@ -62,17 +62,20 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IndustryId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("IndustryId");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LeadSourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("LeadSourceId");
 
                     b.Property<int?>("LeadStatusId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("LeadStatusId");
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(50)
@@ -99,7 +102,12 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("RatingId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("RatingId");
+
+                    b.Property<int?>("SalutationId")
+                        .HasColumnType("int")
+                        .HasColumnName("SalutationId");
 
                     b.Property<string>("State")
                         .HasMaxLength(10)
@@ -130,7 +138,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RatingId");
 
-                    b.ToTable("Leads");
+                    b.HasIndex("SalutationId");
+
+                    b.ToTable("Leads", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Aggregates.Leads.ValueObjects.Industry", b =>
@@ -501,33 +511,9 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("RatingId");
 
-                    b.OwnsOne("Domain.SharedKernel.FullName", "FullName", b1 =>
-                        {
-                            b1.Property<Guid>("LeadId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("SalutationId")
-                                .HasColumnType("int")
-                                .HasColumnName("SalutationId");
-
-                            b1.HasKey("LeadId");
-
-                            b1.HasIndex("SalutationId");
-
-                            b1.ToTable("Leads");
-
-                            b1.WithOwner()
-                                .HasForeignKey("LeadId");
-
-                            b1.HasOne("Domain.SharedKernel.Salutation", "Salutation")
-                                .WithMany()
-                                .HasForeignKey("SalutationId");
-
-                            b1.Navigation("Salutation");
-                        });
-
-                    b.Navigation("FullName")
-                        .IsRequired();
+                    b.HasOne("Domain.SharedKernel.Salutation", "Salutation")
+                        .WithMany()
+                        .HasForeignKey("SalutationId");
 
                     b.Navigation("Industry");
 
@@ -536,6 +522,8 @@ namespace Persistence.Migrations
                     b.Navigation("LeadStatus");
 
                     b.Navigation("Rating");
+
+                    b.Navigation("Salutation");
                 });
 #pragma warning restore 612, 618
         }

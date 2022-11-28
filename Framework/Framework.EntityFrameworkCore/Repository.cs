@@ -26,7 +26,7 @@ public abstract class Repository<TEntity> :
 	protected DbContext DatabaseContext { get; }
 	// **********
 
-	public
+	public virtual
 		async
 		Task
 		AddAsync(TEntity entity,
@@ -41,7 +41,7 @@ public abstract class Repository<TEntity> :
 			(entity: entity, cancellationToken: cancellationToken);
 	}
 
-	public
+	public virtual
 		async
 		Task
 		AddRangeAsync(IEnumerable<TEntity> entities,
@@ -56,7 +56,7 @@ public abstract class Repository<TEntity> :
 			(entities: entities, cancellationToken: cancellationToken);
 	}
 
-	public
+	public virtual
 		async
 		Task RemoveAsync
 		(TEntity entity, CancellationToken cancellationToken = default)
@@ -78,7 +78,7 @@ public abstract class Repository<TEntity> :
 		}, cancellationToken: cancellationToken);
 	}
 
-	public
+	public virtual
 		async
 		Task<bool> RemoveByIdAsync
 		(Guid id, CancellationToken cancellationToken = default)
@@ -97,7 +97,7 @@ public abstract class Repository<TEntity> :
 		return true;
 	}
 
-	public
+	public virtual
 		async
 		Task
 		RemoveRangeAsync(IEnumerable<TEntity> entities,
@@ -115,7 +115,7 @@ public abstract class Repository<TEntity> :
 		}
 	}
 
-	public
+	public virtual
 		async
 		Task UpdateAsync
 		(TEntity entity, CancellationToken cancellationToken = default)
@@ -133,7 +133,7 @@ public abstract class Repository<TEntity> :
 		}, cancellationToken: cancellationToken);
 	}
 
-	public
+	public virtual
 		async
 		Task
 		<IEnumerable<TEntity>>
@@ -148,7 +148,7 @@ public abstract class Repository<TEntity> :
 		return result;
 	}
 
-	public
+	public virtual
 		async
 		Task<IEnumerable<TEntity>>
 		Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate,
@@ -165,7 +165,7 @@ public abstract class Repository<TEntity> :
 		return result;
 	}
 
-	public
+	public virtual
 		async
 		Task<TEntity> FindAsync
 		(Guid id, CancellationToken cancellationToken = default)
@@ -177,12 +177,12 @@ public abstract class Repository<TEntity> :
 		return result;
 	}
 
-	public Task<IEnumerable<TEntity>> GetSomeAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+	public virtual Task<IEnumerable<TEntity>> GetSomeAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
 	{
 		throw new NotImplementedException();
 	}
 
-	public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+	public virtual async  Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		TEntity entity =
 			await FindAsync(id: id, cancellationToken: cancellationToken);

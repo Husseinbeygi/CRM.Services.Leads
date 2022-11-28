@@ -80,9 +80,9 @@ public class LeadUnitTest
 		result.Street.Should().Be("Saba");
 		result.Website.Should().Be("Goolds.com");
 		result.Email.Value.Should().Be("Hussein@Gmail.com");
-		result.FullName.Salutation.Value.Should().Be(1);
-		result.FullName.FirstName.Value.Should().Be("Hussein");
-		result.FullName.LastName.Value.Should().Be("beygi");
+		//result.FullName.Salutation.Value.Should().Be(1);
+		//result.FullName.FirstName.Value.Should().Be("Hussein");
+		//result.FullName.LastName.Value.Should().Be("beygi");
 
 	}
 

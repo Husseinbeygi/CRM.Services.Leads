@@ -13,20 +13,37 @@ public class LeadConfiguration :
 
 		builder.Property(x => x.LastName)
 			.IsRequired()
-			.HasConversion(x => x.Value,x => Domain.SharedKernel.LastName.Create(x));
+			.HasConversion(x => x.Value, x => Domain.SharedKernel.LastName.Create(x));
 
-		builder.OwnsOne(x => x.FullName, b =>
-		{
-			b.HasOne(x => x.Salutation).WithMany().HasForeignKey("SalutationId").IsRequired(false);
+		builder.HasOne(x => x.Salutation)
+			.WithMany()
+			.HasForeignKey("SalutationId")
+			.IsRequired(false)
+			.OnDelete(DeleteBehavior.NoAction);
 
-			b.Property<int>("SalutationId").HasColumnName("SalutationId");  // Fix The Column name in DB
+		builder.HasOne(x => x.Industry)
+			.WithMany()
+			.HasForeignKey("IndustryId")
+			.IsRequired(false)
+			.OnDelete(DeleteBehavior.NoAction);
 
-		});
+		builder.HasOne(x => x.LeadSource)
+			.WithMany()
+			.HasForeignKey("LeadSourceId")
+			.IsRequired(false)
+			.OnDelete(DeleteBehavior.NoAction);
 
-		builder.HasOne(x => x.Industry).WithMany().HasForeignKey("IndustryId").IsRequired(false);
-		builder.HasOne(x => x.LeadSource).WithMany().HasForeignKey("LeadSourceId").IsRequired(false);
-		builder.HasOne(x => x.LeadStatus).WithMany().HasForeignKey("LeadStatusId").IsRequired(false);
-		builder.HasOne(x => x.Rating).WithMany().HasForeignKey("RatingId").IsRequired(false);
+		builder.HasOne(x => x.LeadStatus)
+			.WithMany()
+			.HasForeignKey("LeadStatusId")
+			.IsRequired(false)
+			.OnDelete(DeleteBehavior.NoAction);
+
+		builder.HasOne(x => x.Rating)
+			.WithMany()
+			.HasForeignKey("RatingId")
+			.IsRequired(false)
+			.OnDelete(DeleteBehavior.NoAction);
 
 		builder.Property(x => x.Company).IsRequired().HasMaxLength(255);
 
@@ -44,7 +61,7 @@ public class LeadConfiguration :
 		builder.Property(x => x.State).HasMaxLength(10);
 		builder.Property(x => x.PostalCode).HasMaxLength(50);
 		builder.Property(x => x.Description).HasMaxLength(500);
-		builder.Property(x => x.AnnualRevenue).HasPrecision(2);
+		builder.Property(x => x.AnnualRevenue).HasPrecision(28, 8);
 	}
 
 }

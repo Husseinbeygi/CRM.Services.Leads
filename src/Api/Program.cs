@@ -12,14 +12,14 @@ services.AddSwaggerGen();
 
 services.AddTransient<Persistence.IUnitOfWork, Persistence.UnitOfWork>();
 
-// using AutoMapper;
-services.AddAutoMapper(typeof(Program));
 
 var connection = builder.Configuration.GetConnectionString("ConnctionString");
 services.AddDbContext<Persistence.DatabaseContext>(opt =>
 {
 	opt.UseSqlServer(connection);
 	opt.EnableSensitiveDataLogging();
+	opt.UseLazyLoadingProxies();
+
 });
 
 var app = builder.Build();
