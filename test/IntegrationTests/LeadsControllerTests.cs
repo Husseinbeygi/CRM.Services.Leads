@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using IntegrationTests.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
 using System.Net.Http.Json;
 
 namespace IntegrationTests;
@@ -80,5 +81,53 @@ public class LeadsControllerTests : IClassFixture<WebApplicationFactory<Program>
 
 		post.EnsureSuccessStatusCode();
 	}
+
+
+	[Fact]
+	public async Task ShouldUpdateLeadWhenValidationIsOk()
+	{
+		var Lead = await Client.GetFromJsonAsync<Models.LeadResponse>("Leads");
+
+		Lead.Should().NotBeNull();
+
+		var id = Lead.data.First().id;
+
+		var jsonBody_patch = System.Text.Json.JsonSerializer.Serialize(new Leads
+		{
+			id = id,
+			lastName = "LastNameTests",
+			company = "ComponyTests",
+			tenantId = Guid.NewGuid().ToString(),
+			salutaion = new ValueObject { value = 0 },
+			industry = new ValueObject { value = 0 },
+			rating = new ValueObject { value = 0 },
+			leadSource = new ValueObject { value = 0 },
+			leadStatus = new ValueObject { value = 0 }
+		});
+
+
+		StringContent httpContent_patch = 
+			new(jsonBody_patch, System.Text.Encoding.UTF8, "application/json");
+
+		var patch = await Client.PatchAsync("Leads", httpContent_patch);
+
+
+		patch.EnsureSuccessStatusCode();
+	}
+
+	[Fact]
+	public async Task ShouldReturnOkWhenRequestToDeleteALead()
+	{
+		var Lead = await Client.GetFromJsonAsync<Models.LeadResponse>("Leads");
+
+		Lead.Should().NotBeNull();
+
+		var id = Lead?.data.First().id;
+
+		var res = await Client.DeleteAsync($"Leads/{id}");
+
+		res.EnsureSuccessStatusCode();
+	}
+
 
 }
