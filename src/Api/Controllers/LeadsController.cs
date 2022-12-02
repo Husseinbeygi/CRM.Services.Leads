@@ -90,8 +90,8 @@ public class LeadsController : Infrustructure.ControllerBase
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 		try
 		{
-			var createLead = new
-					Domain.Aggregates.Leads.Lead
+			var createLead = 
+					Domain.Aggregates.Leads.Lead.Create
 					(model.TenantId.Value
 					, Salutation.GetByValue(model.Salutaion.Value)
 					, FirstName.Create(model.FirstName)
@@ -210,7 +210,7 @@ public class LeadsController : Infrustructure.ControllerBase
 			, model.NumberOfEmployees
 			, model.Website
 			, model.Description
-			);
+			, model.VersionNumber);
 
 			await UnitOfWork.SaveAsync();
 

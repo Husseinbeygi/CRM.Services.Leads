@@ -129,6 +129,9 @@
   <data name="InvalidVerificationKey" xml:space="preserve">
     <value>Verification key is not valid</value>
   </data>
+  <data name="OptimisticConcurrencyException" xml:space="preserve">
+    <value>Operation failed because another user has updated or deleted the record. Your changes have been lost. Please review their changes before trying again.</value>
+  </data>
   <data name="UnexpectedError" xml:space="preserve">
     <value>Unexpected Error. Please contact Support</value>
   </data>

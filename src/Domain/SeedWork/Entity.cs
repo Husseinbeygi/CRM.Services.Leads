@@ -30,14 +30,22 @@
 
 		protected Entity() : base()
 		{
-			Id = System.Guid.NewGuid();
+			Id = Guid.NewGuid();
 		}
 
 		// **********
-		public System.Guid Id { get; private set; }
+		public Guid Id { get; private set; }
+
+		public int VersionNumber { get; protected set; }
+
 		// **********
 
 		int? _requestedHashCode;
+
+		protected void IncreaseVersion()
+		{
+			VersionNumber++;
+		}
 
 		public bool IsTransient()
 		{

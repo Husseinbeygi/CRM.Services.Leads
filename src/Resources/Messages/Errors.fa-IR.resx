@@ -129,6 +129,9 @@
   <data name="InvalidVerificationKey" xml:space="preserve">
     <value>کد فعال‌سازی صحیح نمی‌باشد!</value>
   </data>
+  <data name="OptimisticConcurrencyException" xml:space="preserve">
+    <value>عملیات با خطا مواجه شد. زیرا کاربر دیگری اطلاعات را تغییر داده است، لطفا اطلاعات را دوباره دریافت و مجددا تلاش فرمایید</value>
+  </data>
   <data name="UnexpectedError" xml:space="preserve">
     <value>خطای ناشناخته‌ای صورت گرفته است! لطفا با تیم پشتیبانی تماس حاصل فرمایید.</value>
   </data>

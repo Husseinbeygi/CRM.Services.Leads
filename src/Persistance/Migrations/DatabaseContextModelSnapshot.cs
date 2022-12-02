@@ -62,20 +62,17 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IndustryId")
-                        .HasColumnType("int")
-                        .HasColumnName("IndustryId");
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LeadSourceId")
-                        .HasColumnType("int")
-                        .HasColumnName("LeadSourceId");
+                        .HasColumnType("int");
 
                     b.Property<int?>("LeadStatusId")
-                        .HasColumnType("int")
-                        .HasColumnName("LeadStatusId");
+                        .HasColumnType("int");
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(50)
@@ -102,12 +99,10 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("RatingId")
-                        .HasColumnType("int")
-                        .HasColumnName("RatingId");
+                        .HasColumnType("int");
 
                     b.Property<int?>("SalutationId")
-                        .HasColumnType("int")
-                        .HasColumnName("SalutationId");
+                        .HasColumnType("int");
 
                     b.Property<string>("State")
                         .HasMaxLength(10)
@@ -123,6 +118,9 @@ namespace Persistence.Migrations
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("VersionNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("Website")
                         .HasMaxLength(100)
@@ -140,7 +138,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("SalutationId");
 
-                    b.ToTable("Leads", (string)null);
+                    b.ToTable("Leads");
                 });
 
             modelBuilder.Entity("Domain.Aggregates.Leads.ValueObjects.Industry", b =>
@@ -497,23 +495,28 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.Industry", "Industry")
                         .WithMany()
-                        .HasForeignKey("IndustryId");
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.LeadSource", "LeadSource")
                         .WithMany()
-                        .HasForeignKey("LeadSourceId");
+                        .HasForeignKey("LeadSourceId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.LeadStatus", "LeadStatus")
                         .WithMany()
-                        .HasForeignKey("LeadStatusId");
+                        .HasForeignKey("LeadStatusId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.Rating", "Rating")
                         .WithMany()
-                        .HasForeignKey("RatingId");
+                        .HasForeignKey("RatingId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.SharedKernel.Salutation", "Salutation")
                         .WithMany()
-                        .HasForeignKey("SalutationId");
+                        .HasForeignKey("SalutationId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Industry");
 

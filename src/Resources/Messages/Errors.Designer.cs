@@ -97,6 +97,15 @@ namespace Resources.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation failed because another user has updated or deleted the record. Your changes have been lost. Please review their changes before trying again..
+        /// </summary>
+        public static string OptimisticConcurrencyException {
+            get {
+                return ResourceManager.GetString("OptimisticConcurrencyException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unexpected Error. Please contact Support.
         /// </summary>
         public static string UnexpectedError {

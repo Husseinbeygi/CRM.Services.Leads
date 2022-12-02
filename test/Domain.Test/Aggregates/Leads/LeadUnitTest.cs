@@ -13,7 +13,7 @@ public class LeadUnitTest
 	public void ShouldThrowExceptionWhenRequiredInputIsNotValid(string Lname, string Company)
 	{
 		var result = () =>
-			new Domain.Aggregates.Leads.Lead
+			Domain.Aggregates.Leads.Lead.Create
 			(Guid.NewGuid(),
 			null,
 			null, LastName.Create(Lname), null, null, null,
@@ -31,7 +31,7 @@ public class LeadUnitTest
 	public void ShouldCreateUserWhenMinimumRequiredInputAreValid(string Lname, string Company)
 	{
 		var result =
-			new Domain.Aggregates.Leads.Lead
+			Domain.Aggregates.Leads.Lead.Create
 			(Guid.NewGuid(),
 			null,
 			null, LastName.Create(Lname), null, null, null,
@@ -47,7 +47,7 @@ public class LeadUnitTest
 	public void ShouldCreateUserProperly()
 	{
 		var result =
-			new Domain.Aggregates.Leads.Lead
+			Domain.Aggregates.Leads.Lead.Create
 			(Guid.NewGuid(),
 			Salutation.Mr,
 			FirstName.Create("Hussein"),

@@ -10,10 +10,10 @@
 
 		// **********
 		[System.Text.Json.Serialization.JsonIgnore]
-		private readonly System.Collections.Generic.List<Framework.DDD.IDomainEvent> _domainEvents;
+		private readonly List<Framework.DDD.IDomainEvent> _domainEvents;
 
 		[System.Text.Json.Serialization.JsonIgnore]
-		public System.Collections.Generic.IReadOnlyList<Framework.DDD.IDomainEvent> DomainEvents
+		public IReadOnlyList<Framework.DDD.IDomainEvent> DomainEvents
 		{
 			get
 			{

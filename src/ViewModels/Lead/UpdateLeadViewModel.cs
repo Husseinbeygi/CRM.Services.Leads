@@ -1,7 +1,5 @@
 ﻿namespace ViewModels.Lead;
 
-public class UpdateLeadViewModel : LeadsViewModelBase
+public class UpdateLeadViewModel : LeadsViewModel
 {
-	public Guid Id { get; set; }
-
 }
