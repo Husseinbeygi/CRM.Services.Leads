@@ -14,6 +14,12 @@ services.AddSwaggerGen();
 
 services.AddTransient<Persistence.IUnitOfWork, Persistence.UnitOfWork>();
 
+services.AddCors(o => o.AddPolicy("BlazorPolicy", builder =>
+{
+	builder.WithOrigins("https://localhost:7083")
+		   .AllowAnyMethod()
+		   .AllowAnyHeader();
+}));
 
 var connection = builder.Configuration.GetConnectionString("ConnctionString");
 services.AddDbContext<Persistence.DatabaseContext>(opt =>
@@ -33,6 +39,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseCors("BlazorPolicy");
+
 app.UseExceptionHandling();
 
 app.UseHttpsRedirection();
@@ -49,4 +57,4 @@ app.Run();
 
 
 
-public partial class Program{}
+public partial class Program { }
