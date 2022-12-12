@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Persistence;
 using System.Net;
 using ViewModels.Lead;
+using ViewModels.Lead.ValueObjects;
 
 namespace Api.Controllers;
 
@@ -225,6 +226,53 @@ public class LeadsController : Infrustructure.ControllerBase
 			result.AddErrorMessage(ex.Message);
 			return BadRequest(result);
 		}
+
+	}
+
+	[HttpGet("options")]
+	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+	[ProducesResponseType((int)HttpStatusCode.NotFound)]
+	[ProducesResponseType(typeof(Result<LeadsOptions>), (int)HttpStatusCode.OK)]
+	public async Task<IActionResult> LeadOptions()
+	{
+		var result = new Result<LeadsOptions>();
+		try
+		{
+			var leadsOptions = new LeadsOptions()
+			{
+				Industry = Domain.SeedWork.Enumeration
+				.GetAll<Industry>()
+				.Adapt<List<ValueObject>>(),
+
+				LeadSource = Domain.SeedWork.Enumeration
+				.GetAll<LeadSource>()
+				.Adapt<List<ValueObject>>(),
+
+				LeadStatus = Domain.SeedWork.Enumeration
+				.GetAll<LeadStatus>()
+				.Adapt<List<ValueObject>>(),
+
+				Rating = Domain.SeedWork.Enumeration
+				.GetAll<Rating>()
+				.Adapt<List<ValueObject>>(),
+
+				Salutation = Domain.SeedWork.Enumeration
+				.GetAll<Salutation>()
+				.Adapt<List<ValueObject>>(),
+
+			};
+
+			result.WithData(leadsOptions);
+
+			return Ok(result);
+
+		}
+		catch (Exception ex)
+		{
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
+		}
+
 
 	}
 
