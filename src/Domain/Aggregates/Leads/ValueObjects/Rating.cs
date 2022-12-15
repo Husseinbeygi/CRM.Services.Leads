@@ -1,6 +1,4 @@
-﻿using Domain.SharedKernel;
-
-namespace Domain.Aggregates.Leads.ValueObjects;
+﻿namespace Domain.Aggregates.Leads.ValueObjects;
 
 public class Rating : SeedWork.Enumeration
 {
@@ -36,6 +34,24 @@ public class Rating : SeedWork.Enumeration
 		}
 
 		return rating;
+	}
+
+	public static List<Rating> GetAllByCulture()
+	{
+		/*
+			Because the static properties 
+			doesn't change the culture 
+			dynamically, this was the only way 
+			that I can change the value by culture
+		*/
+
+		var _rating = new List<Rating>()
+		{
+			new(0, Resources.DataDictionary.Cold),
+			new(1, Resources.DataDictionary.Warm),
+			new(2, Resources.DataDictionary.Hot),
+		};
+		return _rating;
 	}
 	#endregion /Static Member(s)
 

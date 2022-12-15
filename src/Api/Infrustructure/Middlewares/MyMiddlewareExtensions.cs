@@ -12,5 +12,12 @@ namespace Api.Infrustructure.Middlewares
 		{
 			return builder.UseMiddleware<ExceptionHandlingMiddleware>();
 		}
+
+		public static IApplicationBuilder
+UseCultureHandler(this IApplicationBuilder builder)
+		{
+			return builder.UseMiddleware<CultureCookieHandlerMiddleware>();
+		}
+
 	}
 }

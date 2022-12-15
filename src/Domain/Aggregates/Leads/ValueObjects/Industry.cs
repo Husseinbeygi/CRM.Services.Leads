@@ -1,4 +1,4 @@
-﻿	namespace Domain.Aggregates.Leads.ValueObjects;
+﻿namespace Domain.Aggregates.Leads.ValueObjects;
 
 public class Industry : SeedWork.Enumeration
 {
@@ -65,6 +65,53 @@ public class Industry : SeedWork.Enumeration
 		}
 
 		return industry;
+	}
+
+	public static List<Industry> GetAllByCulture()
+	{
+		/*
+			Because the static properties 
+			doesn't change the culture 
+			dynamically, this was the only way 
+			that I can change the value by culture
+		*/
+		var _industries = new List<Industry>()
+		{
+			new(0, Resources.DataDictionary.None),
+			new(31, Resources.DataDictionary.Agriculture),
+			new(1, Resources.DataDictionary.Apparel),
+			new(2, Resources.DataDictionary.Banking),
+			new(3, Resources.DataDictionary.Biotechnology),
+			new(4, Resources.DataDictionary.Chemicals),
+			new(5, Resources.DataDictionary.Communications),
+			new(6, Resources.DataDictionary.Construction),
+			new(7, Resources.DataDictionary.Consulting),
+			new(8, Resources.DataDictionary.Education),
+			new(9, Resources.DataDictionary.Electronics),
+			new(10, Resources.DataDictionary.Energy),
+			new(11, Resources.DataDictionary.Engineering),
+			new(12, Resources.DataDictionary.Entertainment),
+			new(13, Resources.DataDictionary.Environmental),
+			new(14, Resources.DataDictionary.Finance),
+			new(15, Resources.DataDictionary.Government),
+			new(16, Resources.DataDictionary.Healthcare),
+			new(17, Resources.DataDictionary.Hospitality),
+			new(18, Resources.DataDictionary.Insurance),
+			new(19, Resources.DataDictionary.Machinery),
+			new(29, Resources.DataDictionary.Manufacturing),
+			new(20, Resources.DataDictionary.Media),
+			new(21, Resources.DataDictionary.NotForProfit),
+			new(22, Resources.DataDictionary.Retail),
+			new(23, Resources.DataDictionary.Shipping),
+			new(24, Resources.DataDictionary.Technology),
+			new(25, Resources.DataDictionary.Telecommunications),
+			new(26, Resources.DataDictionary.Transportation),
+			new(27, Resources.DataDictionary.Utilities),
+			new(28, Resources.DataDictionary.Recreation),
+			new(30, Resources.DataDictionary.Other),
+		};
+
+		return _industries;
 	}
 	#endregion /Static Member(s)
 

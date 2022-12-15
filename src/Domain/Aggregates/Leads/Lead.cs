@@ -15,7 +15,7 @@ public class Lead : SeedWork.AggregateRoot
 		string title, string company, string mobile,
 		string phone, Rating rating, string country, string state,
 		string city, string street, Industry industry, decimal? annualRevenue,
-		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description)
+		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description, Guid ownerid)
 	{
 
 
@@ -45,6 +45,7 @@ public class Lead : SeedWork.AggregateRoot
 		Street = street;
 		Website = website;
 		TenantId = tenantId;
+		OwnerId = ownerid;
 		CreatedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
 		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
 		#endregion
@@ -58,12 +59,12 @@ public class Lead : SeedWork.AggregateRoot
 		string title, string company, string mobile,
 		string phone, Rating rating, string country, string state,
 		string city, string street, Industry industry, decimal? annualRevenue,
-		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description)
+		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description, Guid ownerid)
 	{
 		var _lead = new Lead(tenantId, salutation, firstName, lastName, email,
 			status, title, company, mobile, phone, rating, country, state, city,
 			street, industry, annualRevenue, leadSource, postalCode, numberOfEmployees,
-			website, description);
+			website, description, ownerid);
 
 		return _lead;
 	}

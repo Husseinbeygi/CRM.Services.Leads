@@ -16,8 +16,8 @@ public class LeadSource : SeedWork.Enumeration
 	public static readonly LeadSource Web = new(6, Resources.DataDictionary.Web);
 	public static readonly LeadSource Wordofmouth = new(7, Resources.DataDictionary.Wordofmouth);
 
-	#endregion	
-	
+	#endregion
+
 	#region Static Member(s)
 	public static LeadSource GetByValue(int? value)
 	{
@@ -42,6 +42,30 @@ public class LeadSource : SeedWork.Enumeration
 		}
 
 		return leadsource;
+	}
+
+	public static List<LeadSource> GetAllByCulture()
+	{
+		/*
+			Because the static properties 
+			doesn't change the culture 
+			dynamically, this was the only way 
+			that I can change the value by culture
+		*/
+
+		var _sources = new List<LeadSource>()
+		{
+			new(0, Resources.DataDictionary.None),
+			new(1, Resources.DataDictionary.Advertisement),
+			new(2, Resources.DataDictionary.ExternalReferral),
+			new(3, Resources.DataDictionary.InStore),
+			new(4, Resources.DataDictionary.OnSite),
+			new(5, Resources.DataDictionary.Social),
+			new(6, Resources.DataDictionary.Web),
+			new(7, Resources.DataDictionary.Wordofmouth),
+		};
+
+		return _sources;
 	}
 	#endregion /Static Member(s)
 

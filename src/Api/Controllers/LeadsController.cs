@@ -3,15 +3,18 @@ using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
 using Framework.Results;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 using System.Net;
+using System.Security.Claims;
 using ViewModels.Lead;
 using ViewModels.Lead.ValueObjects;
 
 namespace Api.Controllers;
 
 [Route("api/v1/[controller]")]
+[Authorize]
 [ApiController]
 public class LeadsController : Infrustructure.ControllerBase
 {
@@ -78,22 +81,18 @@ public class LeadsController : Infrustructure.ControllerBase
 
 	[HttpPost]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-	[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.Created)]
 	public async Task<IActionResult> CreateLead(CreateLeadViewModel model)
 	{
-
-		if (model.TenantId.HasValue == false)
-		{
-			return UnprocessableEntity();
-		}
+		var tenantId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "buid")?.Value);
+		var oid = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 		try
 		{
 			var createLead = 
 					Domain.Aggregates.Leads.Lead.Create
-					(model.TenantId.Value
+					(tenantId
 					, Salutation.GetByValue(model.Salutaion.Value)
 					, FirstName.Create(model.FirstName)
 					, LastName.Create(model.LastName)
@@ -114,7 +113,8 @@ public class LeadsController : Infrustructure.ControllerBase
 					, model.PostalCode
 					, model.NumberOfEmployees
 					, model.Website
-					, model.Description);
+					, model.Description,
+					oid);
 
 			await UnitOfWork.LeadRepository.AddAsync(createLead);
 
@@ -240,24 +240,19 @@ public class LeadsController : Infrustructure.ControllerBase
 		{
 			var leadsOptions = new LeadsOptions()
 			{
-				Industry = Domain.SeedWork.Enumeration
-				.GetAll<Industry>()
+				Industry = Industry.GetAllByCulture()
 				.Adapt<List<ValueObject>>(),
 
-				LeadSource = Domain.SeedWork.Enumeration
-				.GetAll<LeadSource>()
+				LeadSource = LeadSource.GetAllByCulture()
 				.Adapt<List<ValueObject>>(),
 
-				LeadStatus = Domain.SeedWork.Enumeration
-				.GetAll<LeadStatus>()
+				LeadStatus = LeadStatus.GetAllByCulture()
 				.Adapt<List<ValueObject>>(),
 
-				Rating = Domain.SeedWork.Enumeration
-				.GetAll<Rating>()
+				Rating = Rating.GetAllByCulture()
 				.Adapt<List<ValueObject>>(),
 
-				Salutation = Domain.SeedWork.Enumeration
-				.GetAll<Salutation>()
+				Salutation = Salutation.GetAllByCulture()
 				.Adapt<List<ValueObject>>(),
 
 			};

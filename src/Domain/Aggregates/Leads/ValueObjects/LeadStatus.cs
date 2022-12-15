@@ -39,6 +39,27 @@ public class LeadStatus : SeedWork.Enumeration
 
 		return leadstatus;
 	}
+
+	public static List<LeadStatus> GetAllByCulture()
+	{
+		/*
+			Because the static properties 
+			doesn't change the culture 
+			dynamically, this was the only way 
+			that I can change the value by culture
+		*/
+
+		var _status = new List<LeadStatus>()
+		{
+			new(0, Resources.DataDictionary.New),
+			new(1, Resources.DataDictionary.Contacted),
+			new(2, Resources.DataDictionary.Working),
+			new(3, Resources.DataDictionary.Qualified),
+			new(4, Resources.DataDictionary.Unqualified),
+		};
+
+		return _status;
+	}
 	#endregion /Static Member(s)
 
 
