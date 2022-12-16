@@ -60,6 +60,7 @@ namespace Api.MappingConfiguration
 				Title = item?.Title ?? string.Empty,
 				Website = item?.Website ?? string.Empty,
 				Id = item.Id,
+				VersionNumber = item?.VersionNumber ?? 0,
 			};
 		}
 	}
