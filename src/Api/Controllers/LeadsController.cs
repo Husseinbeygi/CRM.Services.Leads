@@ -27,7 +27,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType((int)HttpStatusCode.NoContent)]
 	[ProducesResponseType(typeof(Result<List<LeadsViewModel>>), (int)HttpStatusCode.OK)]
-	public async Task <IActionResult> GetLeads()
+	public async Task<IActionResult> GetLeads()
 	{
 		var Result = new Framework.Results.Result<List<LeadsViewModel>>();
 
@@ -58,7 +58,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType((int)HttpStatusCode.NotFound)]
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.OK)]
-	public async Task<IActionResult>GetLead(Guid Id)
+	public async Task<IActionResult> GetLead(Guid Id)
 	{
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 
@@ -90,7 +90,7 @@ public class LeadsController : Infrustructure.ControllerBase
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 		try
 		{
-			var createLead = 
+			var createLead =
 					Domain.Aggregates.Leads.Lead.Create
 					(tenantId
 					, Salutation.GetByValue(model.Salutaion.Value)
@@ -139,7 +139,7 @@ public class LeadsController : Infrustructure.ControllerBase
 
 	[HttpDelete("{id}")]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-	[ProducesResponseType((int)HttpStatusCode.OK)] 
+	[ProducesResponseType((int)HttpStatusCode.OK)]
 	public async Task<IActionResult> DeleteLead(Guid id)
 	{
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
@@ -163,6 +163,35 @@ public class LeadsController : Infrustructure.ControllerBase
 		}
 	}
 
+
+	[HttpDelete]
+	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+	[ProducesResponseType((int)HttpStatusCode.OK)]
+	public async Task<IActionResult> DeleteLeads([FromQuery]List<Guid> ids)
+	{
+		var result = new Result<ViewModels.Lead.LeadsViewModel>();
+
+		try
+		{
+			foreach (var id in ids)
+			{
+				var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(id);
+				if (res == false)
+				{
+					result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+									Resources.DataDictionary.Lead));
+					return NotFound(result);
+				}
+			}
+			await UnitOfWork.SaveAsync();
+			return Ok();
+		}
+		catch (Exception ex)
+		{
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
+		}
+	}
 
 	[HttpPatch]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
