@@ -109,6 +109,8 @@ public class Lead : SeedWork.AggregateRoot
 
 		//SetFullName(salutation, firstName, lastName);
 		#endregion
+
+		IncreaseVersion();
 	}
 
 	#region Property(ies)
