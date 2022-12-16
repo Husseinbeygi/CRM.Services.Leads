@@ -10,14 +10,20 @@ namespace Api.Infrustructure.Middlewares
 		public static IApplicationBuilder
 			UseExceptionHandling(this IApplicationBuilder builder)
 		{
-			return builder.UseMiddleware<ExceptionHandlingMiddleware>();
+			return builder.UseMiddleware<UseExceptionHandlingMiddleware>();
 		}
 
 		public static IApplicationBuilder
 UseCultureHandler(this IApplicationBuilder builder)
 		{
-			return builder.UseMiddleware<CultureCookieHandlerMiddleware>();
+			return builder.UseMiddleware<UseCultureHandlerMiddleware>();
 		}
 
+
+		public static IServiceCollection 
+			AddIdempotentRequest(this IServiceCollection services)
+		{
+			return services.AddSingleton<Idempotency.IdempotentInMemory>();
+		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace Api.Infrustructure.Middlewares
 {
-	public class CultureCookieHandlerMiddleware : object
+	public class UseCultureHandlerMiddleware : object
 	{
 		#region Static Member(s)
 		public readonly static string CookieName = "Culture.Cookie";
@@ -19,7 +19,7 @@
 
 		#endregion /Static Member(s)
 
-		public CultureCookieHandlerMiddleware
+		public UseCultureHandlerMiddleware
 			(RequestDelegate next) : base()
 		{
 			Next = next;

@@ -3,13 +3,13 @@
 	/// <summary>
 	/// 
 	/// </summary>
-	public class ExceptionHandlingMiddleware : object
+	public class UseExceptionHandlingMiddleware : object
 	{
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="next"></param>
-		public ExceptionHandlingMiddleware
+		public UseExceptionHandlingMiddleware
 			(RequestDelegate next) : base()
 		{
 			Next = next;

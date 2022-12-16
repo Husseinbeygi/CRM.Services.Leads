@@ -17,6 +17,8 @@ services.AddSwaggerGen();
 
 services.AddTransient<Persistence.IUnitOfWork, Persistence.UnitOfWork>();
 
+services.AddIdempotentRequest();
+
 X509Certificate2 cert = new X509Certificate2("key.pfx", "123456789");
 SecurityKey key = new X509SecurityKey(cert);
 
@@ -75,6 +77,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); 
 
 app.UseAuthorization();
+
+app.UseUseIdempotencyCheck();
 
 app.MapControllers();
 

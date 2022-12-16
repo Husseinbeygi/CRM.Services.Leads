@@ -18,7 +18,7 @@ public class LeadUnitTest
 			null,
 			null, LastName.Create(Lname), null, null, null,
 			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
-			numberOfEmployees: null, website: null, description: null, ownerid: asss);
+			numberOfEmployees: null, website: null, description: null, ownerid: Guid.NewGuid());
 
 
 		result.Should().Throw<Exception>();
@@ -36,7 +36,7 @@ public class LeadUnitTest
 			null,
 			null, LastName.Create(Lname), null, null, null,
 			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
-			numberOfEmployees: null, website: null, description: null, ownerid: asss);
+			numberOfEmployees: null, website: null, description: null, ownerid: Guid.NewGuid());
 
 
 		result.LastName.Should().Be(LastName.Create("Beygi"));
@@ -57,7 +57,7 @@ public class LeadUnitTest
 			rating: Rating.Warm, country: "Iran", state: "Khorasan",
 			city: "Mashhad", street: "Saba", industry: Industry.Technology, annualRevenue: 120000,
 			leadSource: LeadSource.Web, postalCode: "123123123", numberOfEmployees: 0, website: "Goolds.com",
-			description: "Very Good", ownerid: asss);
+			description: "Very Good", ownerid: Guid.NewGuid());
 
 
 		result.FirstName.Value.Should().Be("Hussein");
