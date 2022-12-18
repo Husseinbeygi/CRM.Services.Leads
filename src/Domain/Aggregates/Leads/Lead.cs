@@ -10,12 +10,14 @@ public class Lead : SeedWork.AggregateRoot
 	{
 
 	}
-	private Lead(Guid tenantId, Salutation salutation,
-		FirstName firstName, LastName lastName, EmailAddress email, LeadStatus status,
-		string title, string company, string mobile,
-		string phone, Rating rating, string country, string state,
-		string city, string street, Industry industry, decimal? annualRevenue,
-		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description, Guid ownerid)
+	private Lead(Guid tenantId, Guid ownerid,
+		Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
+		LeadStatus status, string title, string company,
+		string mobile, string phone, Rating rating, string country,
+		string state, string city, string street, Industry industry,
+		decimal? annualRevenue, LeadSource leadSource, string postalCode,
+		int? numberOfEmployees, string website, string description,
+		Guid createdById, Guid modifiedById)
 	{
 
 
@@ -46,25 +48,29 @@ public class Lead : SeedWork.AggregateRoot
 		Website = website;
 		TenantId = tenantId;
 		OwnerId = ownerid;
-		CreatedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
-		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
+		CreatedById = createdById;
+		ModifiedById = modifiedById;
+		CreatedAt = Framework.DateTime.DateTime
+					.GetCurrentUnixUTCTimeMilliseconds();
+		SetModifiedAt();
 		#endregion
 
 		IncreaseVersion();
 	}
 
 
-	public static Lead Create(Guid tenantId, Salutation salutation,
-		FirstName firstName, LastName lastName, EmailAddress email, LeadStatus status,
-		string title, string company, string mobile,
-		string phone, Rating rating, string country, string state,
-		string city, string street, Industry industry, decimal? annualRevenue,
-		LeadSource leadSource, string postalCode, int? numberOfEmployees, string website, string description, Guid ownerid)
+	public static Lead Create(Guid tenantId, Guid ownerid,
+		Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
+		LeadStatus status, string title, string company,
+		string mobile, string phone, Rating rating, string country,
+		string state, string city, string street, Industry industry,
+		decimal? annualRevenue, LeadSource leadSource, string postalCode,
+		int? numberOfEmployees, string website, string description, Guid createdById, Guid modifiedById)
 	{
-		var _lead = new Lead(tenantId, salutation, firstName, lastName, email,
-			status, title, company, mobile, phone, rating, country, state, city,
-			street, industry, annualRevenue, leadSource, postalCode, numberOfEmployees,
-			website, description, ownerid);
+		var _lead = new Lead(tenantId, ownerid, salutation, firstName, lastName,
+			email, status, title, company, mobile, phone, rating, country, state,
+			city, street, industry, annualRevenue, leadSource, postalCode,
+			numberOfEmployees, website, description, createdById,modifiedById);
 
 		return _lead;
 	}
@@ -73,7 +79,8 @@ public class Lead : SeedWork.AggregateRoot
 	public void Update(Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
 		LeadStatus leadStatus, string? title, string company, string? mobile, string? phone, Rating rating,
 		string? country, string? state, string? city, string? street, Industry industry, decimal? annualRevenue,
-		LeadSource leadSource, string? postalCode, int? numberOfEmployees, string? website, string? description, int version)
+		LeadSource leadSource, string? postalCode, int? numberOfEmployees, string? website, string? description,
+		int version, Guid modifiedById)
 	{
 		LastName = lastName ?? throw new ArgumentNullOrEmptyException
 			(string.Format(Resources.Messages.Validations.Required, Resources.DataDictionary.LastName));
@@ -105,14 +112,30 @@ public class Lead : SeedWork.AggregateRoot
 		State = state;
 		Street = street;
 		Website = website;
-		ModifiedAt = Framework.DateTime.DateTime.GetCurrentUnixUTCTimeMilliseconds();
-
-		//SetFullName(salutation, firstName, lastName);
+		ModifiedById = modifiedById;
 		#endregion
 
+		SetModifiedAt();
 		IncreaseVersion();
 	}
 
+	private void SetModifiedAt()
+	{
+		ModifiedAt =
+		Framework.DateTime.DateTime
+		.GetCurrentUnixUTCTimeMilliseconds();
+	}
+
+	public void UpdateStatus(LeadStatus status, Guid modifiedById) {
+		
+		LeadStatus = status;
+
+		ModifiedById = modifiedById;
+
+		SetModifiedAt();
+
+		IncreaseVersion();
+	}
 	#region Property(ies)
 	public SharedKernel.FirstName FirstName { get; private set; }
 	public SharedKernel.LastName LastName { get; private set; }

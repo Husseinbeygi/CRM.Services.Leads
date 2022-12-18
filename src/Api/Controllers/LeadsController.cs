@@ -1,4 +1,5 @@
-﻿using Api.MappingConfiguration;
+﻿using Api.Helpers;
+using Api.MappingConfiguration;
 using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
 using Framework.Results;
@@ -18,9 +19,11 @@ namespace Api.Controllers;
 [ApiController]
 public class LeadsController : Infrustructure.ControllerBase
 {
+	private readonly CurrentContextHelper contextHelper;
 
-	public LeadsController(IUnitOfWork unitOfWork) : base(unitOfWork)
+	public LeadsController(IUnitOfWork unitOfWork,CurrentContextHelper contextHelper) : base(unitOfWork)
 	{
+		this.contextHelper = contextHelper;
 	}
 
 	[HttpGet]
@@ -93,7 +96,7 @@ public class LeadsController : Infrustructure.ControllerBase
 			var createLead =
 					Domain.Aggregates.Leads.Lead.Create
 					(tenantId
-					, Salutation.GetByValue(model.Salutaion.Value)
+					, oid, Salutation.GetByValue(model.Salutaion.Value)
 					, FirstName.Create(model.FirstName)
 					, LastName.Create(model.LastName)
 					, EmailAddress.Create(model.Email)
@@ -113,8 +116,10 @@ public class LeadsController : Infrustructure.ControllerBase
 					, model.PostalCode
 					, model.NumberOfEmployees
 					, model.Website
-					, model.Description,
-					oid);
+,
+					model.Description,
+					contextHelper.CurrentUserId,
+					contextHelper.CurrentUserId);
 
 			await UnitOfWork.LeadRepository.AddAsync(createLead);
 
@@ -240,7 +245,8 @@ public class LeadsController : Infrustructure.ControllerBase
 			, model.NumberOfEmployees
 			, model.Website
 			, model.Description
-			, model.VersionNumber);
+			, model.VersionNumber
+			, contextHelper.CurrentUserId);
 
 			await UnitOfWork.SaveAsync();
 
@@ -300,4 +306,50 @@ public class LeadsController : Infrustructure.ControllerBase
 
 	}
 
+	[HttpPatch("status")]
+	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+	[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
+	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.Created)]
+	public async Task<IActionResult> UpdateStatusLead(UpdateLeadStatusViewModel model)
+	{
+
+		if (model.Id == Guid.Empty)
+		{
+			return UnprocessableEntity();
+		}
+
+		var result = new Result<LeadsViewModel>();
+
+		var leadModel = await UnitOfWork.LeadRepository.GetByIdAsync(model.Id);
+
+		if (leadModel is null)
+		{
+			result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+							Resources.DataDictionary.Lead));
+			return NotFound(result);
+		}
+
+		try
+		{
+			leadModel.UpdateStatus
+					(LeadStatus.GetByValue(model.LeadStatus.Value)
+					, contextHelper.CurrentUserId);
+
+			await UnitOfWork.SaveAsync();
+
+			var mappedModel = LeadMapper.Map(leadModel);
+
+			result.WithData(mappedModel);
+
+			return Ok(result);
+		}
+		catch (Exception ex)
+		{
+			result.AddErrorMessage(ex.Message);
+			return BadRequest(result);
+		}
+
+	}
+
 }
+

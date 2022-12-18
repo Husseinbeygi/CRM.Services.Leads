@@ -1,6 +1,6 @@
-﻿using Domain.Aggregates.Leads.ValueObjects;
+﻿using Domain.Aggregates.Leads;
+using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
-using Persistence;
 
 namespace Domain.Test.Aggregates.Leads;
 
@@ -15,10 +15,10 @@ public class LeadUnitTest
 		var result = () =>
 			Domain.Aggregates.Leads.Lead.Create
 			(Guid.NewGuid(),
-			null,
-			null, LastName.Create(Lname), null, null, null,
-			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
-			numberOfEmployees: null, website: null, description: null, ownerid: Guid.NewGuid());
+			ownerid: Guid.NewGuid(),
+			salutation: null, firstName: null, lastName: LastName.Create(Lname), email: null, status: null,
+			title: null, company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null,
+			postalCode: null, numberOfEmployees: null, website: null, description: null, Guid.NewGuid(), Guid.NewGuid());
 
 
 		result.Should().Throw<Exception>();
@@ -33,10 +33,10 @@ public class LeadUnitTest
 		var result =
 			Domain.Aggregates.Leads.Lead.Create
 			(Guid.NewGuid(),
-			null,
-			null, LastName.Create(Lname), null, null, null,
-			company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null, postalCode: null,
-			numberOfEmployees: null, website: null, description: null, ownerid: Guid.NewGuid());
+			ownerid: Guid.NewGuid(),
+			salutation: null, firstName: null, lastName: LastName.Create(Lname), email: null, status: null,
+			title: null, company: Company, mobile: null, phone: null, rating: null, country: null, state: null, city: null, street: null, industry: null, annualRevenue: null, leadSource: null,
+			postalCode: null, numberOfEmployees: null, website: null, description: null, Guid.NewGuid(), Guid.NewGuid());
 
 
 		result.LastName.Should().Be(LastName.Create("Beygi"));
@@ -46,19 +46,7 @@ public class LeadUnitTest
 	[Fact]
 	public void ShouldCreateUserProperly()
 	{
-		var result =
-			Domain.Aggregates.Leads.Lead.Create
-			(Guid.NewGuid(),
-			Salutation.Mr,
-			FirstName.Create("Hussein"),
-			LastName.Create("beygi"),
-			EmailAddress.Create("Hussein@Gmail.com"), LeadStatus.New, "CEO",
-			company: "Company", mobile: "+989152020056", phone: "123456789",
-			rating: Rating.Warm, country: "Iran", state: "Khorasan",
-			city: "Mashhad", street: "Saba", industry: Industry.Technology, annualRevenue: 120000,
-			leadSource: LeadSource.Web, postalCode: "123123123", numberOfEmployees: 0, website: "Goolds.com",
-			description: "Very Good", ownerid: Guid.NewGuid());
-
+		Lead result = CreateLead();
 
 		result.FirstName.Value.Should().Be("Hussein");
 		result.LastName.Value.Should().Be("beygi");
@@ -86,5 +74,31 @@ public class LeadUnitTest
 
 	}
 
+	private static Lead CreateLead()
+	{
+		return Domain.Aggregates.Leads.Lead.Create
+			(Guid.NewGuid(),
+			ownerid: Guid.NewGuid(),
+			salutation: Salutation.Mr,
+			firstName: FirstName.Create("Hussein"),
+			lastName: LastName.Create("beygi"), email: EmailAddress.Create("Hussein@Gmail.com"), status: LeadStatus.New,
+			title: "CEO", company: "Company", mobile: "+989152020056",
+			phone: "123456789", rating: Rating.Warm, country: "Iran",
+			state: "Khorasan", city: "Mashhad", street: "Saba", industry: Industry.Technology,
+			annualRevenue: 120000, leadSource: LeadSource.Web, postalCode: "123123123", numberOfEmployees: 0,
+			website: "Goolds.com", description: "Very Good", Guid.NewGuid(), Guid.NewGuid());
+	}
 
+	[Fact]
+	public void ShouldUpdateLeadStatus()
+	{
+		Lead result = CreateLead();
+
+		result.LeadStatus.Value.Should().Be(0);
+
+		result.UpdateStatus(LeadStatus.Qualified, Guid.NewGuid());
+
+		result.LeadStatus.Value.Should().Be(3);
+
+	}
 }
