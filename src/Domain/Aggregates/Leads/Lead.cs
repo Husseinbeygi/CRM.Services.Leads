@@ -1,4 +1,5 @@
 ﻿using Domain.Aggregates.Leads.ValueObjects;
+using Domain.Aggregates.Users;
 using Domain.Exceptions;
 using Domain.SharedKernel;
 
@@ -55,9 +56,8 @@ public class Lead : SeedWork.AggregateRoot
 		SetModifiedAt();
 		#endregion
 
-		IncreaseVersion();
+		//IncreaseVersion();
 	}
-
 
 	public static Lead Create(Guid tenantId, Guid ownerid,
 		Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
@@ -70,11 +70,10 @@ public class Lead : SeedWork.AggregateRoot
 		var _lead = new Lead(tenantId, ownerid, salutation, firstName, lastName,
 			email, status, title, company, mobile, phone, rating, country, state,
 			city, street, industry, annualRevenue, leadSource, postalCode,
-			numberOfEmployees, website, description, createdById,modifiedById);
+			numberOfEmployees, website, description, createdById, modifiedById);
 
 		return _lead;
 	}
-
 
 	public void Update(Salutation salutation, FirstName firstName, LastName lastName, EmailAddress email,
 		LeadStatus leadStatus, string? title, string company, string? mobile, string? phone, Rating rating,
@@ -116,7 +115,7 @@ public class Lead : SeedWork.AggregateRoot
 		#endregion
 
 		SetModifiedAt();
-		IncreaseVersion();
+		//IncreaseVersion();
 	}
 
 	private void SetModifiedAt()
@@ -126,31 +125,36 @@ public class Lead : SeedWork.AggregateRoot
 		.GetCurrentUnixUTCTimeMilliseconds();
 	}
 
-	public void UpdateStatus(LeadStatus status, Guid modifiedById) {
-		
+	public void UpdateStatus(LeadStatus status, Guid modifiedById)
+	{
+
 		LeadStatus = status;
 
 		ModifiedById = modifiedById;
 
 		SetModifiedAt();
 
-		IncreaseVersion();
+		//IncreaseVersion();
 	}
+
 	#region Property(ies)
+	public long Code { get; set; }
 	public SharedKernel.FirstName FirstName { get; private set; }
 	public SharedKernel.LastName LastName { get; private set; }
 	public virtual SharedKernel.Salutation Salutation { get; private set; }
-
 	public string Company { get; private set; }
 	public SharedKernel.EmailAddress Email { get; private set; }
 	public string? Title { get; private set; }
 	public string? Mobile { get; private set; }
 	public string? Phone { get; private set; }
 	public Guid OwnerId { get; private set; }
+	public virtual User Owner { get; private set; }
 	public long ModifiedAt { get; private set; }
 	public Guid ModifiedById { get; private set; }
+	public virtual User ModifiedBy { get; private set; }
 	public long CreatedAt { get; private set; }
 	public Guid CreatedById { get; private set; }
+	public virtual User CreatedBy { get; private set; }
 	public virtual LeadStatus LeadStatus { get; private set; }
 	public decimal? AnnualRevenue { get; private set; }
 	public string? City { get; private set; }

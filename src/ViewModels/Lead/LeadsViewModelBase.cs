@@ -4,12 +4,14 @@ namespace ViewModels.Lead
 {
 	public class LeadsViewModelBase
 	{
+		public long Code { get; set; }
 		public decimal? AnnualRevenue { get; set; }
 		public string? City { get; set; }
 		public string? Company { get; set; }
 		public string? Country { get; set; }
-		public long? CreatedAt { get; set; }
+		public DateTime? CreatedAt { get; set; }
 		public Guid? CreatedById { get; set; }
+		public string? CreatedBy { get; set; }
 		public string? Description { get; set; }
 		public string? Email { get; set; }
 		public string? FirstName { get; set; }
@@ -19,10 +21,12 @@ namespace ViewModels.Lead
 		public ValueObject LeadSource { get; set; }
 		public ValueObject LeadStatus { get; set; }
 		public string? Mobile { get; set; }
-		public long? ModifiedAt { get; set; }
+		public DateTime? ModifiedAt { get; set; }
 		public Guid? ModifiedById { get; set; }
+		public string? ModifiedBy { get; set; }
 		public int? NumberOfEmployees { get; set; }
 		public Guid? OwnerId { get; set; }
+		public string? Owner { get; set; }
 		public string? Phone { get; set; }
 		public string? PostalCode { get; set; }
 		public ValueObject Rating { get; set; }

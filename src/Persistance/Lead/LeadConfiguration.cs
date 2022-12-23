@@ -7,13 +7,23 @@ public class LeadConfiguration :
 {
 	public void Configure(EntityTypeBuilder<Domain.Aggregates.Leads.Lead> builder)
 	{
+		builder.Property(x => x.VersionNumber)
+		.IsRequired()
+		.ValueGeneratedOnAddOrUpdate();
+
+		builder.Property(x => x.Code)
+		 .IsRequired()
+		 .ValueGeneratedOnAdd();
+
 		builder.Property(x => x.FirstName)
 			.IsRequired(false)
-			.HasConversion(x => x.Value, x => Domain.SharedKernel.FirstName.Create(x));
+			.HasConversion(x => x.Value,
+			x => Domain.SharedKernel.FirstName.Create(x));
 
 		builder.Property(x => x.LastName)
 			.IsRequired()
-			.HasConversion(x => x.Value, x => Domain.SharedKernel.LastName.Create(x));
+			.HasConversion(x => x.Value, 
+			x => Domain.SharedKernel.LastName.Create(x));
 
 		builder.HasOne(x => x.Salutation)
 			.WithMany()
@@ -50,6 +60,29 @@ public class LeadConfiguration :
 		builder.Property(x => x.Email)
 			.IsRequired(false)
 			.HasConversion(x => x.Value, x => Domain.SharedKernel.EmailAddress.Create(x));
+
+		builder.HasOne(x => x.CreatedBy)
+		 .WithMany(x => x.CreatedLeads)
+		 .IsRequired()
+		 .HasForeignKey(x => x.CreatedById)
+		 .OnDelete(DeleteBehavior.Restrict);
+
+		builder.HasOne(x => x.ModifiedBy)
+		 .WithMany(x => x.ModifiedLeads)
+		 .IsRequired()
+		 .HasForeignKey(x => x.ModifiedById)
+		 .OnDelete(DeleteBehavior.Restrict);
+
+		builder.HasOne(x => x.Owner)
+		 .WithMany(x => x.OwnedLeads)
+		 .IsRequired()
+		 .HasForeignKey(x => x.OwnerId)
+		 .OnDelete(DeleteBehavior.Restrict);
+
+
+		builder.HasQueryFilter(x => 
+		EF.Property<Guid>
+		(x,nameof(Domain.Aggregates.Leads.Lead.TenantId)) == x.TenantId);
 
 		builder.Property(x => x.Title).HasMaxLength(50);
 		builder.Property(x => x.Mobile).HasMaxLength(50);

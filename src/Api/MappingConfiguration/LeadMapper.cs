@@ -1,4 +1,5 @@
 using Domain.Aggregates.Leads;
+using Framework.DateTime;
 using ViewModels.Lead;
 using ViewModels.Lead.ValueObjects;
 
@@ -31,6 +32,7 @@ namespace Api.MappingConfiguration
 		{
 			return new LeadsViewModel()
 			{
+				Code = item.Code,	
 				Salutaion = new ValueObject(item?.Salutation?.Value ?? 0, item?.Salutation?.Name ?? string.Empty),
 				FirstName = item?.FirstName?.Value ?? string.Empty,
 				LastName = item?.LastName?.Value ?? string.Empty,
@@ -39,7 +41,7 @@ namespace Api.MappingConfiguration
 				City = item?.City ?? string.Empty,
 				Company = item?.Company ?? string.Empty,
 				Country = item?.Country ?? string.Empty,
-				CreatedAt = item?.CreatedAt ?? 0,
+				CreatedAt = item?.CreatedAt.ConvertToTimeZoneMilliseconds(-3.5),
 				CreatedById = item?.CreatedById ?? Guid.Empty,
 				Description = item?.Description ?? string.Empty,
 				Email = item?.Email?.Value ?? string.Empty,
@@ -47,7 +49,7 @@ namespace Api.MappingConfiguration
 				LeadSource = new ValueObject(item?.LeadSource?.Value ?? 0, item?.LeadSource?.Name ?? string.Empty),
 				LeadStatus = new ValueObject(item?.LeadStatus?.Value ?? 0, item?.LeadStatus?.Name ?? string.Empty),
 				Mobile = item?.Mobile ?? string.Empty,
-				ModifiedAt = item?.ModifiedAt ?? 0,
+				ModifiedAt = item?.ModifiedAt.ConvertToTimeZoneMilliseconds(-3.5),
 				ModifiedById = item?.ModifiedById ?? Guid.Empty,
 				NumberOfEmployees = item?.NumberOfEmployees ?? 0,
 				OwnerId = item?.OwnerId ?? Guid.Empty,
@@ -61,6 +63,9 @@ namespace Api.MappingConfiguration
 				Website = item?.Website ?? string.Empty,
 				Id = item.Id,
 				VersionNumber = item?.VersionNumber ?? 0,
+				CreatedBy = string.Concat(item.CreatedBy.Fname,".", item.CreatedBy.Lname) ?? string.Empty,
+				ModifiedBy = string.Concat(item.ModifiedBy.Fname, ".", item.ModifiedBy.Lname) ?? string.Empty,
+				Owner = string.Concat(item.Owner.Fname, ".", item.Owner.Lname) ?? string.Empty,
 			};
 		}
 	}

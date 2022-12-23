@@ -36,6 +36,12 @@ namespace Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<long>("Code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Code"), 1L, 1);
+
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -120,6 +126,7 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("VersionNumber")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
 
                     b.Property<string>("Website")
@@ -128,11 +135,17 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById");
+
                     b.HasIndex("IndustryId");
 
                     b.HasIndex("LeadSourceId");
 
                     b.HasIndex("LeadStatusId");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("RatingId");
 
@@ -449,6 +462,26 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Aggregates.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Fname")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Lname")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
             modelBuilder.Entity("Domain.SharedKernel.Salutation", b =>
                 {
                     b.Property<int>("Value")
@@ -493,6 +526,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Aggregates.Leads.Lead", b =>
                 {
+                    b.HasOne("Domain.Aggregates.Users.User", "CreatedBy")
+                        .WithMany("CreatedLeads")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.Industry", "Industry")
                         .WithMany()
                         .HasForeignKey("IndustryId")
@@ -508,6 +547,18 @@ namespace Persistence.Migrations
                         .HasForeignKey("LeadStatusId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("Domain.Aggregates.Users.User", "ModifiedBy")
+                        .WithMany("ModifiedLeads")
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Aggregates.Users.User", "Owner")
+                        .WithMany("OwnedLeads")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Aggregates.Leads.ValueObjects.Rating", "Rating")
                         .WithMany()
                         .HasForeignKey("RatingId")
@@ -518,15 +569,30 @@ namespace Persistence.Migrations
                         .HasForeignKey("SalutationId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.Navigation("CreatedBy");
+
                     b.Navigation("Industry");
 
                     b.Navigation("LeadSource");
 
                     b.Navigation("LeadStatus");
 
+                    b.Navigation("ModifiedBy");
+
+                    b.Navigation("Owner");
+
                     b.Navigation("Rating");
 
                     b.Navigation("Salutation");
+                });
+
+            modelBuilder.Entity("Domain.Aggregates.Users.User", b =>
+                {
+                    b.Navigation("CreatedLeads");
+
+                    b.Navigation("ModifiedLeads");
+
+                    b.Navigation("OwnedLeads");
                 });
 #pragma warning restore 612, 618
         }
