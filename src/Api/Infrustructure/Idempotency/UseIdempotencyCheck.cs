@@ -60,7 +60,7 @@ namespace Api.Infrustructure.Middlewares
 	// Extension method used to add the middleware to the HTTP request pipeline.
 	public static class UseIdempotencyCheckExtensions
 	{
-		public static IApplicationBuilder UseUseIdempotencyCheck(this IApplicationBuilder builder)
+		public static IApplicationBuilder UseIdempotencyCheck(this IApplicationBuilder builder)
 		{
 			return builder.UseMiddleware<UseIdempotencyCheck>();
 		}

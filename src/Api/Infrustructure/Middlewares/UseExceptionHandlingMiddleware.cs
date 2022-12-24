@@ -1,4 +1,6 @@
-﻿namespace Api.Infrustructure.Middlewares
+﻿using Framework.Logging.Interfaces;
+
+namespace Api.Infrustructure.Middlewares
 {
 	/// <summary>
 	/// 
@@ -26,7 +28,8 @@
 		/// <param name="httpContext"></param>
 		/// <returns></returns>
 		public async Task InvokeAsync
-			(HttpContext httpContext, IWebHostEnvironment hostEnvironment)
+			(HttpContext httpContext, IWebHostEnvironment hostEnvironment,
+			Framework.Logging.Interfaces.ILogger<UseExceptionHandlingMiddleware> logger)
 		{
 			try
 			{
@@ -34,6 +37,8 @@
 			}
 			catch (Exception ex)
 			{
+				logger.LogError(ex);
+
 				if (hostEnvironment.IsDevelopment())
 				{
 					await HandleException(httpContext.Response, ex);
@@ -42,6 +47,8 @@
 				{
 					await HandleException(httpContext.Response);
 				}
+
+
 			}
 		}
 

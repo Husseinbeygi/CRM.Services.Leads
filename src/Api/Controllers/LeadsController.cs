@@ -20,10 +20,15 @@ namespace Api.Controllers;
 public class LeadsController : Infrustructure.ControllerBase
 {
 	private readonly CurrentContextHelper contextHelper;
+	private readonly Framework.Logging.Interfaces.ILogger<LeadsController> _logger;
 
-	public LeadsController(IUnitOfWork unitOfWork,CurrentContextHelper contextHelper) : base(unitOfWork)
+	public LeadsController(IUnitOfWork unitOfWork
+	,CurrentContextHelper contextHelper
+	, Framework.Logging.Interfaces.ILogger<LeadsController> Logger
+	) : base(unitOfWork)
 	{
 		this.contextHelper = contextHelper;
+		_logger = Logger;
 	}
 
 	[HttpGet]
@@ -32,6 +37,8 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType(typeof(Result<List<LeadsViewModel>>), (int)HttpStatusCode.OK)]
 	public async Task<IActionResult> GetLeads()
 	{
+		_logger.LogInformation("GET LEADS CALLED!");
+		
 		var Result = new Framework.Results.Result<List<LeadsViewModel>>();
 
 		try
