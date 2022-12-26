@@ -29,7 +29,7 @@ try
 	services
 	.AddIdempotentRequest()
 	.AddHttpContextAccessor()
-	.AddCurrentContextHelper()
+	.AddHttpContextHelper()
 	.AddNLogServer();
 
 	X509Certificate2 cert = new X509Certificate2("key.pfx", "123456789");

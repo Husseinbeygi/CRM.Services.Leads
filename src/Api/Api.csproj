@@ -29,6 +29,7 @@
     <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
     <ProjectReference Include="..\..\Framework\Framework.Result\Framework.Results.csproj" />
     <ProjectReference Include="..\Persistance\Persistence.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 
