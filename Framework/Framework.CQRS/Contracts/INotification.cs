@@ -1,4 +1,4 @@
-﻿namespace Framework.CQRS
+﻿namespace Framework.CQRS.Contracts
 {
 	public interface INotification
 	{
