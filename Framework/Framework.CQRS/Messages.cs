@@ -6,14 +6,14 @@ namespace Framework.CQRS
 	{
 		private readonly IServiceProvider _provider;
 
-		public Messages(IServiceProvider provider, CancellationToken cancellationToken)
+		public Messages(IServiceProvider provider)
 		{
 			_provider = provider;
 		}
 
 		public void Dispatch(ICommand command)
 		{
-			Type type = typeof(ICommandHandler<>);
+			Type type = typeof(ICommandHandler<,>);
 			Type[] typeArgs = { command.GetType() };
 			Type handlerType = type.MakeGenericType(typeArgs);
 
@@ -28,21 +28,46 @@ namespace Framework.CQRS
 			Type handlerType = type.MakeGenericType(typeArgs);
 
 			dynamic handler = _provider.GetService(handlerType);
+
 			T result = handler.Handle((dynamic)query);
 
 			return result;
 		}
 
-		public Task DispatchAsync(ICommand command,
-		CancellationToken cancellationToken)
+		public async Task<T> DispatchAsync<T>(IQueryAsync<T> query,
+		CancellationToken cancellationToken) 
 		{
-			throw new NotImplementedException();
+			Type type = typeof(IQueryHandlerAsync<,>);
+			Type[] typeArgs = { query.GetType(), typeof(T) };
+			Type handlerType = type.MakeGenericType(typeArgs);
+
+			dynamic handler = _provider.GetService(handlerType);
+
+			T result = await handler.HandleAsync((dynamic)query);
+
+			return result;
 		}
 
-		public Task<T> DispatchAsync<T>(IQuery<T> query,
-		CancellationToken cancellationToken)
+		public async Task DispatchAsync(ICommandAsync command, CancellationToken cancellationToken = default)
 		{
-			throw new NotImplementedException();
+			Type type = typeof(ICommandHandlerAsync<,>);
+			Type[] typeArgs = { command.GetType() };
+			Type handlerType = type.MakeGenericType(typeArgs);
+
+			dynamic handler = _provider.GetService(handlerType);
+			await handler.HandleAsync((dynamic)command);
+		}
+
+		public async Task<T> DispatchAsync<T>(ICommandAsync<T> command, CancellationToken cancellationToken = default)
+		{
+			Type type = typeof(ICommandHandlerAsync<,>);
+			Type[] typeArgs = { command.GetType(), typeof(T) };
+			Type handlerType = type.MakeGenericType(typeArgs);
+
+			dynamic handler = _provider.GetService(handlerType);
+			T result = await handler.HandleAsync((dynamic)command);
+
+			return result;
 		}
 
 		public void Publish(INotification domainEvent)

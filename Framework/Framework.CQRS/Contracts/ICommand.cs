@@ -1,16 +1,11 @@
-﻿using CSharpFunctionalExtensions;
-
-namespace Framework.CQRS.Contracts
+﻿namespace Framework.CQRS.Contracts
 {
 	public interface ICommand
 	{
 	}
-
-	public interface ICommandHandler<TCommand>
+	public interface ICommandHandler<TCommand, TResult>
 		where TCommand : ICommand
 	{
-		Result Handle(TCommand command);
+		TResult Handle(TCommand command);
 	}
-
-
 }

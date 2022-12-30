@@ -7,8 +7,9 @@ namespace Framework.CQRS
 		void Dispatch(ICommand command);
 		T Dispatch<T>(IQuery<T> query);
 		void Publish(INotification domainEvent);
-		Task DispatchAsync(ICommand command, CancellationToken cancellationToken);
-		Task<T> DispatchAsync<T>(IQuery<T> query, CancellationToken cancellationToken);
-		Task PublishAsync(INotification domainEvent, CancellationToken cancellationToken);
+		Task DispatchAsync(ICommandAsync command, CancellationToken cancellationToken = default);
+		Task<T> DispatchAsync<T>(ICommandAsync<T> command, CancellationToken cancellationToken = default);
+		Task<T> DispatchAsync<T>(IQueryAsync<T> query, CancellationToken cancellationToken = default);
+		Task PublishAsync(INotification domainEvent, CancellationToken cancellationToken = default);
 	}
 }
