@@ -25,8 +25,8 @@ namespace Framework.Logging
 
 			var oex = new ExceptionModel()
 			{
-				Exception = exception.Message,
-				InnerException = exception.InnerException.Message,
+				Exception = exception?.Message,
+				InnerException = exception?.InnerException?.Message,
 			};
 
 			return oex;

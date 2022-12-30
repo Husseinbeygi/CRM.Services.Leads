@@ -45,7 +45,7 @@ namespace Framework.Logging.Models
 		public Hashtable Parameters { get; set; }
 
 		public ExceptionModel Exceptions { get; set; }
-		public string TraceId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public string TraceId { get; set; }
 
 		public override string ToString()
 		{
