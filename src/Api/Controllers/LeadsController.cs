@@ -1,7 +1,10 @@
 ﻿using Api.Helpers;
 using Api.MappingConfiguration;
+using Application.Leads.Commands;
+using Application.Leads.Queries;
 using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
+using Framework.CQRS;
 using Framework.Results;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +23,13 @@ namespace Api.Controllers;
 public class LeadsController : Infrustructure.ControllerBase
 {
 	private readonly CurrentContextHelper contextHelper;
-	private readonly Framework.Logging.Interfaces.ILogger<LeadsController> _logger;
+	private readonly ILogger<LeadsController> _logger;
 
-	public LeadsController(IUnitOfWork unitOfWork
-	,CurrentContextHelper contextHelper
-	, Framework.Logging.Interfaces.ILogger<LeadsController> Logger
-	) : base(unitOfWork)
+	public LeadsController(
+	  CurrentContextHelper contextHelper
+	, ILogger<LeadsController> Logger
+	, IMessages Messages
+	) : base(Messages)
 	{
 		this.contextHelper = contextHelper;
 		_logger = Logger;
@@ -38,21 +42,18 @@ public class LeadsController : Infrustructure.ControllerBase
 	public async Task<IActionResult> GetLeads()
 	{
 		_logger.LogInformation("GET LEADS CALLED!");
-		
-		var Result = new Framework.Results.Result<List<LeadsViewModel>>();
+
+		var Result = new Result<List<LeadsViewModel>>();
 
 		try
 		{
-			var leadModel = (await UnitOfWork.LeadRepository.GetAllAsync()).ToList();
-			if (leadModel is null)
+			var leads = await Messages.DispatchAsync(new GetLeadsQuery());
+			if (leads is null)
 			{
 				return NoContent();
 			}
-			var mappedModel = LeadMapper.Map(leadModel);
 
-			//Result.WithData(mappedModel);
-
-			return Ok(mappedModel.ToResult());
+			return Ok(leads.ToResult());
 
 		}
 		catch (Exception ex)
@@ -70,19 +71,19 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.OK)]
 	public async Task<IActionResult> GetLead(Guid Id)
 	{
-		var result = new Result<ViewModels.Lead.LeadsViewModel>();
+		var result = new Result<LeadsViewModel>();
 
-		var leadModel = await UnitOfWork.LeadRepository.GetByIdAsync(Id);
-		if (leadModel is null)
+		var lead = await Messages.DispatchAsync(new GetLeadQuery(Id));
+
+		if (lead is null)
 		{
 			result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
 							Resources.DataDictionary.Lead));
 			return NotFound(result);
 		}
 
-		var mappedModel = LeadMapper.Map(leadModel);
 
-		result.WithData(mappedModel);
+		result.WithData(lead);
 
 		return Ok(result);
 
@@ -92,51 +93,24 @@ public class LeadsController : Infrustructure.ControllerBase
 	[HttpPost]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.Created)]
-	public async Task<IActionResult> CreateLead(CreateLeadViewModel model)
+	public async Task<IActionResult> CreateLead(CreateLeadCommand model)
 	{
 		var tenantId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == "buid")?.Value);
 		var oid = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
 
-		var result = new Result<ViewModels.Lead.LeadsViewModel>();
+		var result = new Result<Guid>();
 		try
 		{
-			var createLead =
-					Domain.Aggregates.Leads.Lead.Create
-					(tenantId
-					, oid, Salutation.GetByValue(model.Salutaion.Value)
-					, FirstName.Create(model.FirstName)
-					, LastName.Create(model.LastName)
-					, EmailAddress.Create(model.Email)
-					, LeadStatus.GetByValue(model.LeadStatus.Value)
-					, model.Title
-					, model.Company
-					, model.Mobile
-					, model.Phone
-					, Rating.GetByValue(model.Rating.Value)
-					, model.Country
-					, model.State
-					, model.City
-					, model.Street
-					, Industry.GetByValue(model.Industry.Value)
-					, model.AnnualRevenue
-					, LeadSource.GetByValue(model.LeadSource.Value)
-					, model.PostalCode
-					, model.NumberOfEmployees
-					, model.Website
-,
-					model.Description,
-					contextHelper.CurrentUserId,
-					contextHelper.CurrentUserId);
 
-			await UnitOfWork.LeadRepository.AddAsync(createLead);
+			model.OwnerId = oid;
+			model.TenantId = tenantId;
+			model.CurrentUserId = contextHelper.CurrentUserId;
 
-			await UnitOfWork.SaveAsync();
+			var lead = await Messages.DispatchAsync(model);
 
-			var mappedModel = LeadMapper.Map(createLead);
+			result.WithData(lead);
 
-			result.WithData(mappedModel);
-
-			return Created($"/Leads/{mappedModel.Id}", result);
+			return Created($"/Leads/{lead}", result);
 
 		}
 		catch (Exception ex)
@@ -158,14 +132,14 @@ public class LeadsController : Infrustructure.ControllerBase
 
 		try
 		{
-			var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(id);
+			var res = await Messages.DispatchAsync(new DeleteLeadCommand(id));
+
 			if (res == false)
 			{
 				result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
 								Resources.DataDictionary.Lead));
 				return NotFound(result);
 			}
-			await UnitOfWork.SaveAsync();
 			return Ok();
 		}
 		catch (Exception ex)
@@ -179,7 +153,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[HttpDelete]
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType((int)HttpStatusCode.OK)]
-	public async Task<IActionResult> DeleteLeads([FromQuery]List<Guid> ids)
+	public async Task<IActionResult> DeleteLeads([FromQuery] List<Guid> ids)
 	{
 		var result = new Result<ViewModels.Lead.LeadsViewModel>();
 
@@ -187,7 +161,7 @@ public class LeadsController : Infrustructure.ControllerBase
 		{
 			foreach (var id in ids)
 			{
-				var res = await UnitOfWork.LeadRepository.RemoveByIdAsync(id);
+				var res = await Messages.DispatchAsync(new DeleteLeadCommand(id));
 				if (res == false)
 				{
 					result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
@@ -195,7 +169,6 @@ public class LeadsController : Infrustructure.ControllerBase
 					return NotFound(result);
 				}
 			}
-			await UnitOfWork.SaveAsync();
 			return Ok();
 		}
 		catch (Exception ex)
@@ -209,7 +182,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.Created)]
-	public async Task<IActionResult> UpdateLead(UpdateLeadViewModel model)
+	public async Task<IActionResult> UpdateLead(UpdateLeadCommand model)
 	{
 
 		if (model.TenantId.HasValue == false || model.Id == Guid.Empty)
@@ -219,43 +192,17 @@ public class LeadsController : Infrustructure.ControllerBase
 
 		var result = new Result<LeadsViewModel>();
 
-		var leadModel = await UnitOfWork.LeadRepository.GetByIdAsync(model.Id);
-
-		if (leadModel is null)
-		{
-			result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
-							Resources.DataDictionary.Lead));
-			return NotFound(result);
-		}
-
+		model.CurrentUserId = contextHelper.CurrentUserId;
 		try
 		{
-			leadModel.Update(
-			 Salutation.GetByValue(model.Salutaion.Value)
-			, FirstName.Create(model.FirstName)
-			, LastName.Create(model.LastName)
-			, EmailAddress.Create(model.Email)
-			, LeadStatus.GetByValue(model.LeadStatus.Value)
-			, model.Title
-			, model.Company
-			, model.Mobile
-			, model.Phone
-			, Rating.GetByValue(model.Rating.Value)
-			, model.Country
-			, model.State
-			, model.City
-			, model.Street
-			, Industry.GetByValue(model.Industry.Value)
-			, model.AnnualRevenue
-			, LeadSource.GetByValue(model.LeadSource.Value)
-			, model.PostalCode
-			, model.NumberOfEmployees
-			, model.Website
-			, model.Description
-			, model.VersionNumber
-			, contextHelper.CurrentUserId);
+			var leadModel = await Messages.DispatchAsync(model);
 
-			await UnitOfWork.SaveAsync();
+			if (leadModel is null)
+			{
+				result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+								Resources.DataDictionary.Lead));
+				return NotFound(result);
+			}
 
 			var mappedModel = LeadMapper.Map(leadModel);
 
@@ -317,7 +264,7 @@ public class LeadsController : Infrustructure.ControllerBase
 	[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
 	[ProducesResponseType(typeof(Result<LeadsViewModel>), (int)HttpStatusCode.Created)]
-	public async Task<IActionResult> UpdateStatusLead(UpdateLeadStatusViewModel model)
+	public async Task<IActionResult> UpdateStatusLead(UpdateLeadStatusCommand model)
 	{
 
 		if (model.Id == Guid.Empty)
@@ -327,24 +274,18 @@ public class LeadsController : Infrustructure.ControllerBase
 
 		var result = new Result<LeadsViewModel>();
 
-		var leadModel = await UnitOfWork.LeadRepository.GetByIdAsync(model.Id);
-
-		if (leadModel is null)
-		{
-			result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
-							Resources.DataDictionary.Lead));
-			return NotFound(result);
-		}
-
 		try
 		{
-			leadModel.UpdateStatus
-					(LeadStatus.GetByValue(model.LeadStatus.Value)
-					, contextHelper.CurrentUserId);
+			var lead = await Messages.DispatchAsync(model);
 
-			await UnitOfWork.SaveAsync();
+			if (lead is null)
+			{
+				result.AddErrorMessage(string.Format(Resources.Messages.Validations.NotFound,
+								Resources.DataDictionary.Lead));
+				return NotFound(result);
+			}
 
-			var mappedModel = LeadMapper.Map(leadModel);
+			var mappedModel = LeadMapper.Map(lead);
 
 			result.WithData(mappedModel);
 

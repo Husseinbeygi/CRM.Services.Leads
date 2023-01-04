@@ -1,8 +1,11 @@
 using Api.Helpers;
 using Api.Infrustructure.Middlewares;
+using Application.Leads.Queries;
+using Framework.CQRS.DIConfigurations;
 using Framework.Logging.DIConfigurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using System.Security.Cryptography.X509Certificates;
@@ -30,7 +33,10 @@ try
 	.AddIdempotentRequest()
 	.AddHttpContextAccessor()
 	.AddHttpContextHelper()
-	.AddNLogServer();
+	.AddNLogServer()
+	.AddCQRS();
+
+	services.AddHandlers(typeof(GetLeadsQueryHandler).Assembly);
 
 	X509Certificate2 cert = new X509Certificate2("key.pfx", "123456789");
 	SecurityKey key = new X509SecurityKey(cert);
@@ -86,9 +92,9 @@ try
 
 	app.UseHttpsRedirection();
 
-	app.UseAuthentication();
+	//app.UseAuthentication();
 
-	app.UseAuthorization();
+	//app.UseAuthorization();
 
 	app.UseIdempotencyCheck();
 

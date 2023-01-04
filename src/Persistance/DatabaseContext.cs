@@ -1,4 +1,6 @@
-﻿using Persistence.Lead;
+﻿using Framework.CQRS;
+using Framework.DDD;
+using Persistence.Lead;
 
 namespace Persistence;
 
@@ -11,9 +13,11 @@ public class DatabaseContext : DbContext
 	  typeof(Domain.Aggregates.Leads.ValueObjects.Rating),
 	  typeof(Domain.SharedKernel.Salutation)
 	};
+	private readonly IMessages _messages;
 
-	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+	public DatabaseContext(DbContextOptions<DatabaseContext> options,IMessages Messages) : base(options)
 	{
+		_messages = Messages;
 	}
 
 	public DbSet<Domain.Aggregates.Leads.Lead> Leads { get; set; }
@@ -46,27 +50,27 @@ public class DatabaseContext : DbContext
 		int affectedRows =
 			await base.SaveChangesAsync(cancellationToken: cancellationToken);
 
-		if (affectedRows > 0)
-		{
-			//var aggregateRoots =
-			//	ChangeTracker.Entries()
-			//	.Where(current => current.Entity is Dtat.Ddd.IAggregateRoot)
-			//	.Select(current => current.Entity as Dtat.Ddd.IAggregateRoot)
-			//	.ToList()
-			//	;
+		//if (affectedRows > 0)
+		//{
+		//	var aggregateRoots =
+		//		ChangeTracker.Entries()
+		//		.Where(current => current.Entity is IAggregateRoot)
+		//		.Select(current => current.Entity as IAggregateRoot)
+		//		.ToList()
+		//		;
 
-			//foreach (var aggregateRoot in aggregateRoots)
-			//{
-			//	// Dispatch Events!
-			//	foreach (var domainEvent in aggregateRoot.DomainEvents)
-			//	{
-			//		await Mediator.Publish(domainEvent, cancellationToken);
-			//	}
+		//	foreach (var aggregateRoot in aggregateRoots)
+		//	{
+		//		// Dispatch Events!
+		//		foreach (var domainEvent in aggregateRoot.DomainEvents)
+		//		{
+		//			await _messages.PublishAsync(domainEvent, cancellationToken);
+		//		}
 
-			//	// Clear Events!
-			//	aggregateRoot.ClearDomainEvents();
-			//}
-		}
+		//		// Clear Events!
+		//		aggregateRoot.ClearDomainEvents();
+		//	}
+		//}
 
 		return affectedRows;
 	}

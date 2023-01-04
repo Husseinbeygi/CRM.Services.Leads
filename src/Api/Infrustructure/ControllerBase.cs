@@ -1,4 +1,6 @@
-﻿namespace Api.Infrustructure
+﻿using Framework.CQRS;
+
+namespace Api.Infrustructure
 {
 	/// <summary>
 	/// 
@@ -13,14 +15,12 @@
 		/// 
 		/// </summary>
 		/// <param name="unitOfWork"></param>
-		public ControllerBase(Persistence.IUnitOfWork unitOfWork)
+		public IMessages Messages { get; set; }
+
+		public ControllerBase(IMessages Messages)
 		{
-			UnitOfWork = unitOfWork;
+			this.Messages = Messages;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		protected Persistence.IUnitOfWork UnitOfWork { get; }
 	}
 }
