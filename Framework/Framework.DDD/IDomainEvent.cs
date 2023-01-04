@@ -1,4 +1,4 @@
-﻿using Framework.CQRS;
+﻿using Framework.CQRS.Contracts;
 
 namespace Framework.DDD
 {
