@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.Leads.ValueObjects;
+﻿using Domain.Aggregates.Leads.Events;
+using Domain.Aggregates.Leads.ValueObjects;
 using Domain.Aggregates.Users;
 using Domain.Exceptions;
 using Domain.SharedKernel;
@@ -55,6 +56,8 @@ public class Lead : SeedWork.AggregateRoot
 					.GetCurrentUnixUTCTimeMilliseconds();
 		SetModifiedAt();
 		#endregion
+
+		RaiseDomainEvent(new LeadCreatedEvent(Id));
 
 		//IncreaseVersion();
 	}

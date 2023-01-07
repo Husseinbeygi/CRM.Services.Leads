@@ -50,27 +50,27 @@ public class DatabaseContext : DbContext
 		int affectedRows =
 			await base.SaveChangesAsync(cancellationToken: cancellationToken);
 
-		//if (affectedRows > 0)
-		//{
-		//	var aggregateRoots =
-		//		ChangeTracker.Entries()
-		//		.Where(current => current.Entity is IAggregateRoot)
-		//		.Select(current => current.Entity as IAggregateRoot)
-		//		.ToList()
-		//		;
+		if (affectedRows > 0)
+		{
+			var aggregateRoots =
+				ChangeTracker.Entries()
+				.Where(current => current.Entity is IAggregateRoot)
+				.Select(current => current.Entity as IAggregateRoot)
+				.ToList()
+				;
 
-		//	foreach (var aggregateRoot in aggregateRoots)
-		//	{
-		//		// Dispatch Events!
-		//		foreach (var domainEvent in aggregateRoot.DomainEvents)
-		//		{
-		//			await _messages.PublishAsync(domainEvent, cancellationToken);
-		//		}
+			foreach (var aggregateRoot in aggregateRoots)
+			{
+				// Dispatch Events!
+				foreach (var domainEvent in aggregateRoot.DomainEvents)
+				{
+					await _messages.PublishAsync(domainEvent, cancellationToken);
+				}
 
-		//		// Clear Events!
-		//		aggregateRoot.ClearDomainEvents();
-		//	}
-		//}
+				// Clear Events!
+				aggregateRoot.ClearDomainEvents();
+			}
+		}
 
 		return affectedRows;
 	}

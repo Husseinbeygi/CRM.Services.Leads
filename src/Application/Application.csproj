@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Leads\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.CQRS\Framework.CQRS.csproj" />
     <ProjectReference Include="..\Persistance\Persistence.csproj" />
   </ItemGroup>
