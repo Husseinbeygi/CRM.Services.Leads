@@ -130,11 +130,12 @@ namespace Framework.CQRS.DIConfigurations
 
 			Type typeDefinition = type.GetGenericTypeDefinition();
 
-			return 
-			typeDefinition == typeof(ICommandHandler<,>) ||
-			typeDefinition == typeof(ICommandHandlerAsync<,>) ||
-			typeDefinition == typeof(IQueryHandler<,>) ||
-			typeDefinition == typeof(IQueryHandlerAsync<,>);
+			return
+				typeDefinition == typeof(IEventHandlerAsync<>) ||
+				typeDefinition == typeof(ICommandHandler<,>) ||
+				typeDefinition == typeof(ICommandHandlerAsync<,>) ||
+				typeDefinition == typeof(IQueryHandler<,>) ||
+				typeDefinition == typeof(IQueryHandlerAsync<,>);
 		}
 
 	}

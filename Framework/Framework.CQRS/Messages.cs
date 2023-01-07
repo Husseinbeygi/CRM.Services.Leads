@@ -1,4 +1,6 @@
 ﻿using Framework.CQRS.Contracts;
+using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.ConstrainedExecution;
 
 namespace Framework.CQRS
 {
@@ -35,7 +37,7 @@ namespace Framework.CQRS
 		}
 
 		public async Task<T> DispatchAsync<T>(IQueryAsync<T> query,
-		CancellationToken cancellationToken) 
+		CancellationToken cancellationToken)
 		{
 			Type type = typeof(IQueryHandlerAsync<,>);
 			Type[] typeArgs = { query.GetType(), typeof(T) };
@@ -70,15 +72,31 @@ namespace Framework.CQRS
 			return result;
 		}
 
-		public void Publish(INotification domainEvent)
+		public async Task PublishAsync(IEventAsync @event, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
-		}
+			try
+			{
+				Type type = typeof(IEventHandlerAsync<>);
+				Type typeArgs = @event.GetType() ;
+				Type handlerType = type.MakeGenericType(typeArgs);
 
-		public Task PublishAsync(INotification domainEvent,
-		CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
+				dynamic _services = _provider.GetServices(handlerType);
+
+				foreach (var item in _services)
+				{
+					if (item is null)
+						continue;
+
+					await item.HandleAsync((dynamic)@event);
+				}
+
+			}
+			catch (Exception ex)
+			{
+
+				throw;
+			}
+
 		}
 	}
 }

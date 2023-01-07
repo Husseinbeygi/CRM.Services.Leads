@@ -2,7 +2,7 @@
 
 namespace Framework.DDD
 {
-	public interface IDomainEvent : INotification
+	public interface IDomainEvent : IEventAsync
 	{
 	}
 }

@@ -9,10 +9,10 @@
 	{
 	}
 
-	public interface ICommandHandlerAsync<TCommand, TResult>
-	where TCommand : ICommandAsync
+	public interface ICommandHandlerAsync<TEvent, TResult>
+	where TEvent : ICommandAsync
 	{
-		Task<TResult> HandleAsync(TCommand command);
+		Task<TResult> HandleAsync(TEvent command);
 	}
 
 }
