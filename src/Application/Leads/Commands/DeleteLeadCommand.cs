@@ -28,7 +28,7 @@ public class DeleteLeadCommandHandler : ICommandHandlerAsync<DeleteLeadCommand,b
 
 		var res = await unitOfWork.LeadRepository.RemoveByIdAsync(command.Id);
 
-		unitOfWork.SaveAsync();
+		await unitOfWork.SaveAsync();
 
 		return res;	
 	}

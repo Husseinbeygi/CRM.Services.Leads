@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.CQRS\Framework.CQRS.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\Persistance\Persistence.csproj" />
   </ItemGroup>
 

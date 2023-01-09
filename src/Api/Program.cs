@@ -3,6 +3,8 @@ using Api.Infrustructure.Middlewares;
 using Application.Leads.Queries;
 using Framework.CQRS.DIConfigurations;
 using Framework.Logging.DIConfigurations;
+using Framework.Messaging.Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -35,6 +37,20 @@ try
 	.AddHttpContextHelper()
 	.AddNLogServer()
 	.AddCQRS();
+
+
+	services.AddMassTransit(x =>
+	{ 
+		x.UsingRabbitMq((context, cfg) =>
+		{
+			cfg.Host("localhost", "/", h =>
+			{
+				h.Username("guest");
+				h.Password("guest");
+			});
+			cfg.ConfigureEndpoints(context);
+		});
+	});
 
 	services.AddHandlers(typeof(GetLeadsQueryHandler).Assembly);
 
