@@ -1,4 +1,4 @@
-﻿using Framework.Logging.Interfaces;
+﻿using Cyrus.Logging.Interfaces;
 
 namespace Api.Infrustructure.Middlewares
 {
@@ -29,7 +29,7 @@ namespace Api.Infrustructure.Middlewares
 		/// <returns></returns>
 		public async Task InvokeAsync
 			(HttpContext httpContext, IWebHostEnvironment hostEnvironment,
-			Framework.Logging.Interfaces.ILogger<UseExceptionHandlingMiddleware> logger)
+			Cyrus.Logging.Interfaces.ILogger<UseExceptionHandlingMiddleware> logger)
 		{
 			try
 			{
@@ -55,7 +55,7 @@ namespace Api.Infrustructure.Middlewares
 		private static async Task HandleException
 			(HttpResponse httpResponse, Exception ex)
 		{
-			var res = new Framework.Results.Result<string>();
+			var res = new Cyrus.Results.Result<string>();
 
 			res.AddErrorMessage(ex.Message);
 
@@ -69,7 +69,7 @@ namespace Api.Infrustructure.Middlewares
 			(HttpResponse httpResponse)
 		{
 
-			var res = new Framework.Results.Result<string>();
+			var res = new Cyrus.Results.Result<string>();
 
 			var msg = Resources.Messages.Errors.UnexpectedError;
 

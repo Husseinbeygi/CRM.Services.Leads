@@ -1,9 +1,8 @@
 using Api.Helpers;
 using Api.Infrustructure.Middlewares;
 using Application.Leads.Queries;
-using Framework.CQRS.DIConfigurations;
-using Framework.Logging.DIConfigurations;
-using Framework.Messaging.Contracts;
+using Cyrus.CQRS.DIConfigurations;
+using Cyrus.Logging.DIConfigurations;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

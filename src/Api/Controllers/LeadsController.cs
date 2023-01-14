@@ -4,8 +4,8 @@ using Application.Leads.Commands;
 using Application.Leads.Queries;
 using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
-using Framework.CQRS;
-using Framework.Results;
+using Cyrus.CQRS;
+using Cyrus.Results;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +14,7 @@ using System.Net;
 using System.Security.Claims;
 using ViewModels.Lead;
 using ViewModels.Lead.ValueObjects;
+using Cyrus.Logging.Interfaces;
 
 namespace Api.Controllers;
 

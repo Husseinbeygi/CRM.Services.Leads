@@ -1,5 +1,4 @@
-﻿using Framework.CQRS.Contracts;
-using Framework.DDD;
+﻿using Cyrus.DDD;
 
 namespace Domain.Aggregates.Leads.Events;
 

@@ -4,7 +4,7 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Routing;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using Framework.Logging.Interfaces;
+global using Cyrus.Logging.Interfaces;
 global using Microsoft.Extensions.Hosting;
 global using System;
 global using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using Framework.CQRS;
+﻿using Cyrus.CQRS;
 
 namespace Api.Infrustructure
 {

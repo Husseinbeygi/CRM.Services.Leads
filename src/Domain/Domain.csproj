@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cyrus.DateTime" Version="1.0.1" />
+    <PackageReference Include="Cyrus.DDD" Version="1.0.1" />
+    <PackageReference Include="Cyrus.Results" Version="1.0.1" />
+    <PackageReference Include="Cyrus.Strings" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.CQRS\Framework.CQRS.csproj" />
     <ProjectReference Include="..\..\Framework\Framework.DateTime\Framework.DateTime.csproj" />
     <ProjectReference Include="..\..\Framework\Framework.DDD\Framework.DDD.csproj" />

@@ -1,4 +1,4 @@
-﻿using Framework.CQRS.Contracts;
+﻿using Cyrus.CQRS.Contracts;
 using Persistence;
 
 namespace Application.Leads.Commands;

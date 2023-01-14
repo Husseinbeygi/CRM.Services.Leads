@@ -1,3 +1,3 @@
 ﻿global using Domain.SharedKernel.Exceptions;
-global using Framework.Results;
-global using Framework.Strings;
+global using Cyrus.Results;
+global using Cyrus.Strings;

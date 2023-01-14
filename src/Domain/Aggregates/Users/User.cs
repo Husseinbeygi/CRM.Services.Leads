@@ -1,4 +1,5 @@
-﻿using Framework.DDD;
+﻿
+using Cyrus.DDD;
 
 namespace Domain.Aggregates.Users;
 

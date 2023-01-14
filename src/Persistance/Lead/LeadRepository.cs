@@ -1,9 +1,10 @@
-﻿using ViewModels.Lead;
+﻿using Cyrus.EntityFrameworkCore.SqlServer;
+using ViewModels.Lead;
 
 namespace Persistence.Lead;
 
 internal class LeadRepository :
-	Framework.EntityFrameworkCore.Repository<Domain.Aggregates.Leads.Lead>, ILeadRepository
+	Repository<Domain.Aggregates.Leads.Lead>, ILeadRepository
 {
 	private readonly DatabaseContext databaseContext;
 

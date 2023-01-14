@@ -1,5 +1,5 @@
-﻿using Domain.Aggregates.Leads.Events;
-using Framework.CQRS.Contracts;
+﻿using Cyrus.CQRS.Contracts;
+using Domain.Aggregates.Leads.Events;
 using MassTransit;
 
 namespace Application.Leads.Events;

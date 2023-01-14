@@ -2,7 +2,7 @@
 
 namespace Persistence;
 
-public class UnitOfWork : Framework.EntityFrameworkCore.UnitOfWork<DatabaseContext>, IUnitOfWork
+public class UnitOfWork : Cyrus.EntityFrameworkCore.SqlServer.UnitOfWork<DatabaseContext>, IUnitOfWork
 {
 	private readonly DatabaseContext databaseContext;
 

@@ -13,7 +13,7 @@ namespace Domain.SharedKernel
 		{
 
 			value =
-				Framework.Strings.Text.Fix(text: value);
+				Cyrus.Strings.Text.Fix(text: value);
 
 			if (value is null)
 			{

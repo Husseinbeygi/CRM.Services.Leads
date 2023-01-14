@@ -1,8 +1,8 @@
 ﻿using Domain.Aggregates.Leads;
 using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
-using Framework.CQRS.Contracts;
-using Framework.Results;
+using Cyrus.CQRS.Contracts;
+using Cyrus.Results;
 using Persistence;
 using ViewModels.Lead;
 using ViewModels.Lead.ValueObjects;

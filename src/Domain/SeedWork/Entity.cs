@@ -1,6 +1,6 @@
 ﻿namespace Domain.SeedWork
 {
-	public abstract class Entity : object, Framework.DDD.IEntity
+	public abstract class Entity : object, Cyrus.DDD.IEntity
 	{
 		#region Static Member(s)
 		public static bool operator ==(Entity leftObject, Entity rightObject)

@@ -1,5 +1,5 @@
 ﻿using Application.Leads.MappingConfiguration;
-using Framework.CQRS.Contracts;
+using Cyrus.CQRS.Contracts;
 using Persistence;
 using ViewModels.Lead;
 

@@ -1,5 +1,5 @@
 ﻿using Application.Leads.MappingConfiguration;
-using Framework.CQRS.Contracts;
+using Cyrus.CQRS.Contracts;
 using Persistence;
 using ViewModels.Lead;
 
@@ -9,7 +9,7 @@ public class GetLeadQuery : IQueryAsync<LeadsViewModel>
 {
 	public Guid Id { get; set; }
 
-	public GetLeadQuery(Guid id)
+	public GetLeadQuery(Guid id)	
 	{
 		Id = id;
 	}

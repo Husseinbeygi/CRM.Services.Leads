@@ -1,5 +1,5 @@
-﻿using Framework.CQRS;
-using Framework.DDD;
+﻿using Cyrus.CQRS;
+using Cyrus.DDD;
 using Persistence.Lead;
 
 namespace Persistence;

@@ -1,19 +1,19 @@
 ﻿namespace Domain.SeedWork
 {
-	public abstract class AggregateRoot : Entity, Framework.DDD.IAggregateRoot
+	public abstract class AggregateRoot : Entity, Cyrus.DDD.IAggregateRoot
 	{
 		protected AggregateRoot() : base()
 		{
 			_domainEvents =
-				new System.Collections.Generic.List<Framework.DDD.IDomainEvent>();
+				new System.Collections.Generic.List<Cyrus.DDD.IDomainEvent>();
 		}
 
 		// **********
 		[System.Text.Json.Serialization.JsonIgnore]
-		private readonly List<Framework.DDD.IDomainEvent> _domainEvents;
+		private readonly List<Cyrus.DDD.IDomainEvent> _domainEvents;
 
 		[System.Text.Json.Serialization.JsonIgnore]
-		public IReadOnlyList<Framework.DDD.IDomainEvent> DomainEvents
+		public IReadOnlyList<Cyrus.DDD.IDomainEvent> DomainEvents
 		{
 			get
 			{
@@ -22,7 +22,7 @@
 		}
 		// **********
 
-		protected void RaiseDomainEvent(Framework.DDD.IDomainEvent domainEvent)
+		protected void RaiseDomainEvent(Cyrus.DDD.IDomainEvent domainEvent)
 		{
 			if (domainEvent is null)
 			{
@@ -41,7 +41,7 @@
 			// **************************************************
 		}
 
-		protected void RemoveDomainEvent(Framework.DDD.IDomainEvent domainEvent)
+		protected void RemoveDomainEvent(Cyrus.DDD.IDomainEvent domainEvent)
 		{
 			if (domainEvent is null)
 			{

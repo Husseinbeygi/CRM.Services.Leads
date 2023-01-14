@@ -52,7 +52,7 @@ public class Lead : SeedWork.AggregateRoot
 		OwnerId = ownerid;
 		CreatedById = createdById;
 		ModifiedById = modifiedById;
-		CreatedAt = Framework.DateTime.DateTime
+		CreatedAt = Cyrus.DateTime.DateTime
 					.GetCurrentUnixUTCTimeMilliseconds();
 		SetModifiedAt();
 		#endregion
@@ -124,7 +124,7 @@ public class Lead : SeedWork.AggregateRoot
 	private void SetModifiedAt()
 	{
 		ModifiedAt =
-		Framework.DateTime.DateTime
+		Cyrus.DateTime.DateTime
 		.GetCurrentUnixUTCTimeMilliseconds();
 	}
 

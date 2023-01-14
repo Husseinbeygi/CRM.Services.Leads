@@ -1,7 +1,7 @@
 ﻿using Application.Leads.MappingConfiguration;
+using Cyrus.CQRS.Contracts;
 using Domain.Aggregates.Leads.ValueObjects;
 using Domain.SharedKernel;
-using Framework.CQRS.Contracts;
 using Persistence;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;

@@ -2,7 +2,7 @@
 
 namespace Persistence;
 
-public interface IUnitOfWork : Framework.DDD.IUnitOfWork
+public interface IUnitOfWork : Cyrus.DDD.IUnitOfWork
 {
 	public ILeadRepository LeadRepository { get; }
 }
