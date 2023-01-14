@@ -59,7 +59,7 @@ public class Lead : SeedWork.AggregateRoot
 
 		RaiseDomainEvent(new LeadCreatedEvent(Id));
 
-		//IncreaseVersion();
+		IncreaseVersion();
 	}
 
 	public static Lead Create(Guid tenantId, Guid ownerid,
@@ -118,7 +118,7 @@ public class Lead : SeedWork.AggregateRoot
 		#endregion
 
 		SetModifiedAt();
-		//IncreaseVersion();
+		IncreaseVersion();
 	}
 
 	private void SetModifiedAt()
@@ -137,7 +137,7 @@ public class Lead : SeedWork.AggregateRoot
 
 		SetModifiedAt();
 
-		//IncreaseVersion();
+		IncreaseVersion();
 	}
 
 	#region Property(ies)
