@@ -53,7 +53,7 @@ try
 
 	services.AddHandlers(typeof(GetLeadsQueryHandler).Assembly);
 
-	X509Certificate2 cert = new X509Certificate2("key.pfx", "123456789");
+	X509Certificate2 cert = new X509Certificate2("key.pfx", "123456");
 	SecurityKey key = new X509SecurityKey(cert);
 
 	services.AddAuthentication(options =>

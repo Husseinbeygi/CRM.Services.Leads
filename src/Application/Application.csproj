@@ -9,12 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Cyrus.DateTime" Version="1.0.1" />
     <PackageReference Include="Cyrus.Results" Version="1.0.1" />
+    <PackageReference Include="MassTransit" Version="8.0.12" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Framework.CQRS\Framework.CQRS.csproj" />
-    <ProjectReference Include="..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\Persistance\Persistence.csproj" />
+    <ProjectReference Include="..\Shared\Messages\Messages.csproj" />
   </ItemGroup>
 
 </Project>

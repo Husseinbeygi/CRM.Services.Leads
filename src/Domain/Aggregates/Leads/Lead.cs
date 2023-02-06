@@ -57,7 +57,7 @@ public class Lead : SeedWork.AggregateRoot
 		SetModifiedAt();
 		#endregion
 
-		RaiseDomainEvent(new LeadCreatedEvent(Id));
+		RaiseDomainEvent(new LeadCreatedEvent(Id,tenantId,ownerid,createdById,modifiedById,CreatedAt,ModifiedAt));
 
 		IncreaseVersion();
 	}

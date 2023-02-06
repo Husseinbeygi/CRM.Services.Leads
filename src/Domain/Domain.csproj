@@ -14,12 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Framework.CQRS\Framework.CQRS.csproj" />
-    <ProjectReference Include="..\..\Framework\Framework.DateTime\Framework.DateTime.csproj" />
-    <ProjectReference Include="..\..\Framework\Framework.DDD\Framework.DDD.csproj" />
-    <ProjectReference Include="..\..\Framework\Framework.Result\Framework.Results.csproj" />
-    <ProjectReference Include="..\..\Framework\Framework.Strings\Framework.Strings.csproj" />
-    <ProjectReference Include="..\Resources\Resources.csproj" />
+    <ProjectReference Include="..\Shared\Resources\Resources.csproj" />
   </ItemGroup>
 
 </Project>
